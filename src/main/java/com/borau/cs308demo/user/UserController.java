@@ -29,9 +29,9 @@ public class UserController {
 
     private final UserRepository userRepo;
 
-    @Valid
+
     @PostMapping(value = "/user", consumes = "application/json")
-    public ResponseEntity<?> registerUser(@RequestBody UserRegistrationDTO dto) {
+    public ResponseEntity<?> registerUser(@RequestBody @Valid UserRegistrationDTO dto) {
 
         try {
             UserResponseDTO response = userService.registerUser(dto);
