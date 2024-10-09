@@ -1,0 +1,19 @@
+Not:
+    - PC componentleri satan bir firma olarak başlattım projeyi, ileride değiştirmek gerekirse değiştirilebilir.
+    - https://www.baeldung.com/java-validation
+    - şöyle bi https://prnt.sc/_Wi31TYFvKAm fantezi  yapılabilir notification, mockBank vs servisleri ayırmak için
+
+Todo:
+    - Adam gibi validation eklenmesi lazım serverside, preferably bean based / javax.validation veya springfox'un validationu
+    - product image ve genel olarak resource lerin nasıl yönetilecegi problem, ya image hostlanacak yada blob olarak depolanacak.
+    - Session yapılabilir.
+    - @ControllerAdvice ile dogru duzgun bi globalexception handler yapılmalı
+    - bitince junit testleri istenecektir (JUnit test yazımı)
+    - api dokümentasyonu için Swagger2 ile entegrasyon
+    - endpoint pathları ve resource pathları adam gibi standardize edilmeli, çoğul ekleri vs vs
+    - service'yi interface & implementation şeklinde yapıp S.O.C uygulamak : https://davidgiard.com/java-services-and-interfaces-in-a-spring-boot-application,
+    - swagger2 / springfox api dokümentasyonu bitmedi
+    - mail servisi ayarlanması lazım, hazır kolay kütüphane var: org.springframework.mail.javamail.JavaMailSender
+    - id yi string yerine Long veya UUID yapabiliriz, genelde UUID kullanılıyor.
+
+

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Landing Page</title>
+    <!--<link rel="icon" href="xxx.ico" type="image/x-icon">-->
+</head>
+<body>
+
+<h1 style="color:red;">GENERIC LANDING PAGE !</h1>
+
+<!-- Replace hardcoded href with Thymeleaf dynamic href -->
+<a th:href="@{/register}">Register</a>
+<a th:href="@{/about}">About</a>
+<a th:href="@{/contact}">Contact</a>
+
+</body>
+</html>
