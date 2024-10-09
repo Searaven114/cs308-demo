@@ -1,6 +1,7 @@
 package com.borau.cs308demo.user;
 
 import com.borau.cs308demo.user.dto.ProfileDTO;
+import com.borau.cs308demo.user.dto.UserLoginDTO;
 import com.borau.cs308demo.user.dto.UserRegistrationDTO;
 import com.borau.cs308demo.user.dto.UserResponseDTO;
 import com.borau.cs308demo.user.exception.UserRegistrationException;
@@ -9,15 +10,14 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Log4j2
 @AllArgsConstructor
@@ -26,32 +26,30 @@ import java.util.Map;
 public class UserController {
 
     private final UserService userService;
-
     private final UserRepository userRepo;
 
 
-    @PostMapping(value = "/user", consumes = "application/json")
-    public ResponseEntity<?> registerUser(@RequestBody @Valid UserRegistrationDTO dto) {
 
+
+//    @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<?> loginUser(@Valid @RequestBody UserLoginDTO loginDTO) {
+//        try {
+//            String response = userService.login(loginDTO);
+//            return ResponseEntity.ok().body(response);
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+//        }
+//    }
+
+
+    @PostMapping(value = "/user", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> registerUser(@RequestBody @Valid UserRegistrationDTO dto) {
         try {
             UserResponseDTO response = userService.registerUser(dto);
-            return ResponseEntity.ok().body( response );
-
+            return ResponseEntity.ok().body(response);
         } catch (UserRegistrationException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body( e.getMessage() );
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
-    }
-
-    /*private String status;
-    private String message;
-    private Object data;*/
-
-    @Secured({"ROLE_ADMIN"})
-    @GetMapping("/user/admin/show-all-users")
-    public ResponseEntity<?> getUsers(){
-
-        List<User> users = userRepo.findAll();
-        return ResponseEntity.ok().body(users);
     }
 
 
@@ -66,19 +64,17 @@ public class UserController {
         }
     }
 
-
     @Secured({"ROLE_ADMIN"})
     @DeleteMapping("/user/{id}")
     public ResponseEntity<?> deleteUserByAdmin(@PathVariable(required = true) String id) {
 
-        // Fetch the user to be deleted by ID
+
         User userToDelete = userRepo.findById(id).orElse(null);
 
         if (userToDelete == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
 
-        // Perform the delete operation
         userService.deleteProfile(id);
         return ResponseEntity.ok("User deleted successfully");
     }

@@ -6,10 +6,6 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-
-import javax.management.relation.Role;
-import java.util.List;
 
 @Data
 public class UserRegistrationDTO {

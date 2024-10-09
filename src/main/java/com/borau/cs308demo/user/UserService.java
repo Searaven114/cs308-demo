@@ -2,16 +2,19 @@ package com.borau.cs308demo.user;
 
 
 import com.borau.cs308demo.user.dto.ProfileDTO;
+import com.borau.cs308demo.user.dto.UserLoginDTO;
 import com.borau.cs308demo.user.dto.UserRegistrationDTO;
 import com.borau.cs308demo.user.dto.UserResponseDTO;
 import com.borau.cs308demo.user.exception.UserRegistrationException;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -25,9 +28,32 @@ public class UserService{
 
     private final UserRepository userRepo;
     private final BCryptPasswordEncoder encoder;
+    private final AuthenticationManager authenticationManager;
 
 
 //TODO: Add proper validation utilizing UserRegistrationException (derive more exceptions from this base exception class like invalidpasswordexcetion etc)
+
+
+    public String login(UserLoginDTO loginDTO) throws Exception {
+        // Authenticate the user credentials with Spring Security
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getPassword())
+            );
+
+            // Set the authentication in the SecurityContext to mark the user as logged in
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            return "Login successful!";
+        } catch (Exception e) {
+            throw new Exception("Invalid username or password");
+        }
+    }
+
+    public List<User> getUsers(){
+        return userRepo.findAll();
+    }
+
 
     public UserResponseDTO registerUser(UserRegistrationDTO dto) throws UserRegistrationException {
 

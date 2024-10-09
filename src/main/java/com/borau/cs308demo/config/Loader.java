@@ -42,13 +42,13 @@ public class Loader {
 
         // Create fake users with addresses
         List<User> users = Arrays.asList(
-                new User("fuat",  encoder.encode("avni"), "fuatavni@gmail.com", "05665127700"),
+                new User("fuat",  encoder.encode("avni"), "fuat", "05665127700"),
                 new User("admin", encoder.encode("adminpw"), "admin@example.com", fake.phoneNumber().phoneNumber()),
                 new User("salesmanager",  encoder.encode("salespw"), "sales@example.com", fake.phoneNumber().phoneNumber()),
                 new User("productmanager", encoder.encode("productpw"), "product@example.com", fake.phoneNumber().phoneNumber()),
-                new User("customer1", encoder.encode("customerpw"), "customer1@gmail.com", fake.phoneNumber().phoneNumber()),
-                new User("customer2", encoder.encode("customerpw"), "customer2@gmail.com", fake.phoneNumber().phoneNumber()),
-                new User("customer3", encoder.encode("customerpw"), "customer3@gmail.com", fake.phoneNumber().phoneNumber())
+                new User("customer1", encoder.encode("customerpw"), "customer1@example.com", fake.phoneNumber().phoneNumber()),
+                new User("customer2", encoder.encode("customerpw"), "customer2@example.com", fake.phoneNumber().phoneNumber()),
+                new User("customer3", encoder.encode("customerpw"), "customer3@example.com", fake.phoneNumber().phoneNumber())
         );
 
 
@@ -57,7 +57,7 @@ public class Loader {
 
             if ("admin@example.com".equals(user.getUsername())) {
                 roles.add("ROLE_ADMIN");
-                roles.add("ROLE_SALESMAN");
+                roles.add("ROLE_SALESMANAGER");
                 roles.add("ROLE_PRODUCTMANAGER");
                 roles.add("ROLE_USER");
 

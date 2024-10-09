@@ -2,18 +2,46 @@ Not:
     - PC componentleri satan bir firma olarak başlattım projeyi, ileride değiştirmek gerekirse değiştirilebilir.
     - https://www.baeldung.com/java-validation
     - şöyle bi https://prnt.sc/_Wi31TYFvKAm fantezi  yapılabilir notification, mockBank vs servisleri ayırmak için
+    - https://getbootstrap.com/docs/5.0/forms/layout/ burada çok güzel hazır düzenler var form icin, address ekleme formunu falan buradan ekleyebiliriz.
 
 Todo:
     - Adam gibi validation eklenmesi lazım serverside, preferably bean based / javax.validation veya springfox'un validationu
-    - product image ve genel olarak resource lerin nasıl yönetilecegi problem, ya image hostlanacak yada blob olarak depolanacak.
-    - Session yapılabilir.
+    - product image ve genel olarak resource lerin nasıl yönetilecegi problem, ya image hostlanacak yada blob olarak depolanacak.   https://github.com/spring-guides/gs-uploading-files
+    - Session yapılabilir, hatta caching ile kullanılabilir belki?
     - @ControllerAdvice ile dogru duzgun bi globalexception handler yapılmalı
-    - bitince junit testleri istenecektir (JUnit test yazımı)
-    - api dokümentasyonu için Swagger2 ile entegrasyon
+    - Junit ve mockito ile testler yazılacak servislerin vs
     - endpoint pathları ve resource pathları adam gibi standardize edilmeli, çoğul ekleri vs vs
     - service'yi interface & implementation şeklinde yapıp S.O.C uygulamak : https://davidgiard.com/java-services-and-interfaces-in-a-spring-boot-application,
-    - swagger2 / springfox api dokümentasyonu bitmedi
+    - swagger2 / openapi api dökümentasyonu bitmedi, bean validation annotationları gozukmuyor swaggerde
     - mail servisi ayarlanması lazım, hazır kolay kütüphane var: org.springframework.mail.javamail.JavaMailSender
     - id yi string yerine Long veya UUID yapabiliriz, genelde UUID kullanılıyor.
+    - remember me https://www.baeldung.com/spring-security-remember-me
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+using Redis in an eCommerce application is both reasonable and viable. Redis is commonly used in eCommerce apps for various purposes due to its speed and efficiency. Here are a few ways Redis can be useful in your project:
+
+Session Management: Redis is ideal for handling user session data because it's in-memory, making it extremely fast. In an eCommerce app, where users may have long-running sessions (browsing, adding items to a cart, etc.), Redis can store session tokens or session data, reducing the load on the database.
+
+Caching: You can cache frequently accessed data, such as product information, categories, or static content, to reduce the load on your primary database. This improves performance, especially when handling a large number of users.
+
+Shopping Cart: Redis can be used to store the user's shopping cart data, especially for non-logged-in users, making it quick to retrieve and modify. Since Redis supports expiring data, it’s perfect for temporary storage like carts.
+
+Rate Limiting and Throttling: You can use Redis to implement rate-limiting mechanisms for user actions such as API calls, form submissions, or product purchases. This ensures fair use of resources and prevents abuse.
