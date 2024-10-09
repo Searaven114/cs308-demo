@@ -19,12 +19,12 @@ public class PageController {
     private final UserRepository userRepo;
     private final UserService userService;
 
-//    @GetMapping("/")
-//    public String showHomePage() {
-//        return "index";
-//    }
+    @GetMapping("/")
+    public String showHomePage() {
+        return "index";
+    }
 
-    @ResponseBody
+    /*@ResponseBody
     @GetMapping("/")
     public ResponseEntity<?> showHomePage() {
 
@@ -34,7 +34,7 @@ public class PageController {
         User user = userRepo.findByEmail(user_email);
         return ResponseEntity.ok().body( userService.getProfile() );
 
-    }
+    }*/
 
     @GetMapping("/error")
     public String showErrorPage() {

@@ -1,15 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <title>Landing Page</title>
-    <!--<link rel="icon" href="xxx.ico" type="image/x-icon">-->
 </head>
 <body>
 
-<h1 style="color:red;">GENERIC LANDING PAGE !</h1>
+<h1 style="color:red;">GENERIC LANDING PAGE!</h1>
 
-<!-- Replace hardcoded href with Thymeleaf dynamic href -->
+<!-- Show this section only if the user is authenticated -->
+<div sec:authorize="isAuthenticated()">
+    Authenticated as <span sec:authentication="name"></span>
+</div>
+
+<!-- Links with Thymeleaf dynamic hrefs -->
 <a th:href="@{/register}">Register</a>
 <a th:href="@{/about}">About</a>
 <a th:href="@{/contact}">Contact</a>
