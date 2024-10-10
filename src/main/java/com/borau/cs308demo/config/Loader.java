@@ -33,8 +33,7 @@ public class Loader {
 
 
     @PostConstruct
-    public void init(){
-
+    public void init() {
 
 
         // Clean the collection to avoid duplicates on restart
@@ -42,9 +41,9 @@ public class Loader {
 
         // Create fake users with addresses
         List<User> users = Arrays.asList(
-                new User("fuat",  encoder.encode("avni"), "fuat", "05665127700"),
+                new User("fuat", encoder.encode("avni"), "fuat", "05665127700"),
                 new User("admin", encoder.encode("adminpw"), "admin@example.com", fake.phoneNumber().phoneNumber()),
-                new User("salesmanager",  encoder.encode("salespw"), "sales@example.com", fake.phoneNumber().phoneNumber()),
+                new User("salesmanager", encoder.encode("salespw"), "sales@example.com", fake.phoneNumber().phoneNumber()),
                 new User("productmanager", encoder.encode("productpw"), "product@example.com", fake.phoneNumber().phoneNumber()),
                 new User("customer1", encoder.encode("customerpw"), "customer1@example.com", fake.phoneNumber().phoneNumber()),
                 new User("customer2", encoder.encode("customerpw"), "customer2@example.com", fake.phoneNumber().phoneNumber()),
@@ -59,26 +58,25 @@ public class Loader {
                 roles.add("ROLE_ADMIN");
                 roles.add("ROLE_SALESMANAGER");
                 roles.add("ROLE_PRODUCTMANAGER");
-                roles.add("ROLE_USER");
+                roles.add("ROLE_CUSTOMER");
 
             } else if ("sales@example.com".equals(user.getUsername())) {
                 roles.add("ROLE_SALESMANAGER");
-                roles.add("ROLE_USER");
+                roles.add("ROLE_CUSTOMER");
 
             } else if ("product@example.com".equals(user.getUsername())) {
                 roles.add("ROLE_PRODUCTMANAGER");
-                roles.add("ROLE_USER");
-            }
-            else {
-                roles.add("ROLE_USER");
+                roles.add("ROLE_CUSTOMER");
+            } else {
+                roles.add("ROLE_CUSTOMER");
             }
 
             //Setting Roles
             user.setRoles(roles);
 
             //Setting mock IPv4 address
-            user.setRegisterDate( LocalDateTime.now().toString() );
-            user.setRegisterIp( fake.internet().ipV4Address() );
+            user.setRegisterDate(LocalDateTime.now().toString());
+            user.setRegisterIp(fake.internet().ipV4Address());
 
             //Setting mock taxId
             String taxId = fake.idNumber().valid();
@@ -90,19 +88,19 @@ public class Loader {
 
             List<Address> addresses = new ArrayList<>();
 
-            int number = fake.number().numberBetween(1,10);
+            int number = fake.number().numberBetween(1, 10);
 
-            if (number >= 4){
-                addresses.add(new Address(fake.address().streetName(), fake.address().city(), fake.address().zipCode(), fake.address().country()));
+            if (number >= 4) {
+                //addresses.add(new Address(fake.address().streetName(), fake.address().city(), fake.address().zipCode(), fake.address().country()));
 
-            } else if (number < 3){
-                addresses.add(new Address(fake.address().streetName(), fake.address().city(), fake.address().zipCode(), fake.address().country()));
-                addresses.add(new Address(fake.address().streetName(), fake.address().city(), fake.address().zipCode(), fake.address().country(), fake.lorem().characters(30)));
+            } else if (number < 3) {
+                //addresses.add(new Address(fake.address().streetName(), fake.address().city(), fake.address().zipCode(), fake.address().country()));
+                //addresses.add(new Address(fake.address().streetName(), fake.address().city(), fake.address().zipCode(), fake.address().country(), fake.lorem().characters(30)));
 
             } else {
-                addresses.add(new Address(fake.address().streetName(), fake.address().city(), fake.address().zipCode(), fake.address().country()));
-                addresses.add(new Address(fake.address().streetName(), fake.address().city(), fake.address().zipCode(), fake.address().country()));
-                addresses.add(new Address(fake.address().streetName(), fake.address().city(), fake.address().zipCode(), fake.address().country(), fake.lorem().characters(25)));
+                //addresses.add(new Address(fake.address().streetName(), fake.address().city(), fake.address().zipCode(), fake.address().country()));
+                //addresses.add(new Address(fake.address().streetName(), fake.address().city(), fake.address().zipCode(), fake.address().country()));
+                //addresses.add(new Address(fake.address().streetName(), fake.address().city(), fake.address().zipCode(), fake.address().country(), fake.lorem().characters(25)));
             }
 
             //Setting mock addresses
@@ -117,24 +115,24 @@ public class Loader {
 
         distributorRepo.deleteAll();
 
-        //List<Distributor> distributors = loadDistributors(NUM_DISTRIBUTORS);
-
         List<Distributor> distributors = Arrays.asList(
 
-            new Distributor(
-                    "Aral A.Ş",
-                    fake.phoneNumber().phoneNumber(),
-                    fake.address().fullAddress(),
-                    fake.internet().url(),
-                    true
-            ),
-            new Distributor(
-                    "Bircom",
-                    fake.phoneNumber().phoneNumber(),
-                    fake.address().fullAddress(),
-                    fake.internet().url(),
-                    true
-            )
+                new Distributor(
+                        "1",
+                        "Aral A.Ş",
+                        fake.phoneNumber().phoneNumber(),
+                        fake.address().fullAddress(),
+                        fake.internet().url(),
+                        true
+                ),
+                new Distributor(
+                        "2",
+                        "Bircom",
+                        fake.phoneNumber().phoneNumber(),
+                        fake.address().fullAddress(),
+                        fake.internet().url(),
+                        true
+                )
         );
 
         distributorRepo.saveAll(distributors);
@@ -145,10 +143,10 @@ public class Loader {
 
         List<Category> categories = Arrays.asList(
 
-            new Category("1","Laptop",true),
-            new Category("2","Monitor",true),
-            new Category("3","Keyboard",true),
-            new Category("4","Mouse",true)
+                new Category("1", "Laptop", true),
+                new Category("2", "Monitor", true),
+                new Category("3", "Keyboard", true),
+                new Category("4", "Mouse", true)
         );
 
         categoryRepo.saveAll(categories);
@@ -157,20 +155,18 @@ public class Loader {
 
         productRepo.deleteAll();
 
-        Optional<Category> monitorCategory = categoryRepo.findById("2");
-        Optional<Category> laptopCategory = categoryRepo.findById("1");
-        Optional<Category> mouseCategory = categoryRepo.findById("4");
+        Optional<Category> monitorCat = categoryRepo.findById("2");
+        Optional<Category> laptopCat = categoryRepo.findById("1");
+        Optional<Category> mouseCat = categoryRepo.findById("4");
 
         List<Product> products = new ArrayList<>();
 
-        Optional<Category> optionalCategory = categoryRepo.findById("2");
-
-        if (optionalCategory.isPresent()) {
+        if (monitorCat.isPresent()) {
             // Product 1
             products.add(new Product(
                     "1",
                     "Dell UltraSharp Monitor",
-                    optionalCategory.get(),  // Retrieve the Category from Optional
+                    monitorCat.get().getId(),  // Retrieve the Category from Optional
                     "Dell",
                     "U2720Q",
                     "D273928Q",
@@ -178,17 +174,17 @@ public class Loader {
                     35,
                     550.99,
                     true,
-                    "DIS1024"
+                    "1"
             ));
         } else {
             throw new IllegalStateException("Category with id '1' is not found.");
         }
 
         // Add products using predefined categories
-        monitorCategory.ifPresent(category -> products.add(new Product(
+        monitorCat.ifPresent(category -> products.add(new Product(
                 "2",
                 "Dell UltraSharp Monitor",
-                category,
+                monitorCat.get().getId(),
                 "Dell",
                 "U2720Q",
                 "D273928Q",
@@ -196,13 +192,13 @@ public class Loader {
                 35,
                 550.99,
                 true,
-                "DIS1024"
+                "2"
         )));
 
-        laptopCategory.ifPresent(category -> products.add(new Product(
+        laptopCat.ifPresent(category -> products.add(new Product(
                 "3",
                 "HP Envy Laptop",
-                category,
+                laptopCat.get().getId(),
                 "HP",
                 "Envy 13",
                 "HP3438739E",
@@ -210,13 +206,13 @@ public class Loader {
                 25,
                 1099.99,
                 true,
-                "DIS1025"
+                "2"
         )));
 
-        mouseCategory.ifPresent(category -> products.add(new Product(
+        mouseCat.ifPresent(category -> products.add(new Product(
                 "4",
                 "Logitech MX Master 3",
-                category,
+                mouseCat.get().getId(),
                 "Logitech",
                 "MX Master 3",
                 "LOGMXM331",
@@ -224,15 +220,14 @@ public class Loader {
                 80,
                 99.99,
                 true,
-                "DIS1026"
+                "1"
         )));
 
-        // Adding more products to "Laptop" category
-        laptopCategory.ifPresent(category -> {
+        laptopCat.ifPresent(category -> {
             products.add(new Product(
                     "5",
                     "MacBook Pro 16-inch",
-                    category,
+                    laptopCat.get().getId(),
                     "Apple",
                     "M1 Pro",
                     "MBP16M1P2022",
@@ -240,13 +235,15 @@ public class Loader {
                     15,
                     2499.99,
                     true,
-                    "DIS1030"
+                    "1"
             ));
+        });
 
+        laptopCat.ifPresent(category1 -> {
             products.add(new Product(
                     "6",
                     "Dell XPS 13",
-                    category,
+                    laptopCat.get().getId(),
                     "Dell",
                     "XPS 13",
                     "XPS13-9300",
@@ -254,15 +251,15 @@ public class Loader {
                     30,
                     1499.99,
                     true,
-                    "DIS1031"
+                    "2"
             ));
         });
 
-        monitorCategory.ifPresent(category -> {
+        monitorCat.ifPresent(category -> {
             products.add(new Product(
                     "7",
                     "Samsung Odyssey G7",
-                    category,
+                    monitorCat.get().getId(),
                     "Samsung",
                     "Odyssey G7",
                     "SOG7C32",
@@ -270,13 +267,15 @@ public class Loader {
                     25,
                     699.99,
                     true,
-                    "DIS1040"
+                    "2"
             ));
+        });
 
+        monitorCat.ifPresent(category -> {
             products.add(new Product(
                     "8",
                     "LG UltraFine 5K",
-                    category,
+                    monitorCat.get().getId(),
                     "LG",
                     "UltraFine 5K",
                     "LGUF5K",
@@ -284,15 +283,16 @@ public class Loader {
                     20,
                     1299.99,
                     true,
-                    "DIS1041"
+                    "2"
             ));
         });
 
-        mouseCategory.ifPresent(category -> {
+
+        mouseCat.ifPresent(category1 -> {
             products.add(new Product(
                     "9",
                     "Razer DeathAdder V2",
-                    category,
+                    mouseCat.get().getId(),
                     "Razer",
                     "DeathAdder V2",
                     "RDAV2",
@@ -300,13 +300,17 @@ public class Loader {
                     50,
                     59.99,
                     true,
-                    "DIS1050"
+                    "1"
             ));
+        });
+
+
+        mouseCat.ifPresent(category -> {
 
             products.add(new Product(
                     "10",
                     "Corsair Dark Core RGB Pro",
-                    category,
+                    mouseCat.get().getId(),
                     "Corsair",
                     "Dark Core RGB Pro",
                     "CDCRGBPRO",
@@ -314,12 +318,18 @@ public class Loader {
                     45,
                     89.99,
                     true,
-                    "DIS1051"
+                    "1"
             ));
         });
 
-        // Assuming you have a ProductRepository instance 'repo'
         productRepo.saveAll(products);
+
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━//
+
+        //
+
+
+
 
     }
 

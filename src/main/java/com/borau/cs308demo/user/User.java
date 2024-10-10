@@ -35,6 +35,13 @@ public class User implements UserDetails {
     private String registerDate;
     //private Cart cart;
     //private List<Order> orders;
+    //private List<Product> wishlist;  YADA  private Wishlist wishlist;
+
+    // müşteri ya direkt cc/havale ile ödeme yapacak and/or bakiye yükleme şeklinde yapacak, dizayn tarzına bağlı olarak
+    // bu field'i kullanabiliriz. Daha kaliteli bir ödeme sistemi entegre edilebilir tabi, yada "Yemeksepeti Cüzdan" gibi
+    // günümüz fintechvari firmalarının uygulama içi cüzdan yöntemini kullanabiliriz, Alışveriş sepetini bu çüzdan yöntemini
+    // seçerek ödemek isteyen birine özel indirim uygulanır vs vs.
+    //private Double balance;
 
     public User(String email, String password, String name, String surname, String phone, String age, String taxId, List<Address> addresses, Set<String> roles, String registerIp, String registerDate) {
         this.email = email;

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @AllArgsConstructor
 @Log4j2
 @RequestMapping("/api/admin")
@@ -25,30 +24,43 @@ public class AdminController {
 //    Additionally, the website should provide an admin interface for managerial tasks.
 
 
-    @Secured({"ROLE_ADMIN"})
+
     @GetMapping("/show-all-users")
     public ResponseEntity<?> getUsers(){
         return ResponseEntity.ok().body( userService.getUsers() );
     }
 
 
-//    @DeleteMapping("/admin/users/{userId}")
-//    public ResponseEntity<?> removeUser(@PathVariable String userId) {
-//        // Logic to remove a user
+    /*@GetMapping("/users/{userId}")
+    public User getUser(@PathVariable String userId) {
+        // Code to get user details
+        return userService.getUserById(userId);
+    }
+
+    @PostMapping("/users")
+    public User createUser(@RequestBody User user) {
+        // Code to create a new user
+        return userService.createUser(user);
+    }
+
+    @PutMapping("/users/{userId}")
+    public User updateUser(@PathVariable Long userId, @RequestBody User user) {
+        // Code to update user details
+        return userService.updateUser(userId, user);
+    }
+
+    @DeleteMapping("/users/{userId}")
+    public void deleteUser(@PathVariable Long userId) {
+        // Code to delete a user
+        userService.deleteUser(userId);
+    }
+*/
+//    @PostMapping("/users/{userId}/reset-password")
+//    public void resetPassword(@PathVariable String userId) {
+//        // Code to reset password
+//        userService.resetPassword(userId);
 //    }
 
 
-
-
-    //listAllUsers
-
-
-    //removeUser
-
-
-    //deleteAllUsers
-
-
-    //
 
 }

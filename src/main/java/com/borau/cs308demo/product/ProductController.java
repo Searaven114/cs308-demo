@@ -23,7 +23,7 @@ public class ProductController {
     private final ProductService productService;
 
     @Secured({"ROLE_ADMIN"})
-    @GetMapping("")
+    @GetMapping("/get-all-products")
     public ResponseEntity<?> getAllProducts(){
 
         List<Product> products = productService.getAllProducts();
@@ -34,7 +34,7 @@ public class ProductController {
         }
     }
 
-    @Secured({"ROLE_ADMIN", "ROLE_SALESMANAGER", "ROLE_USER", "ROLE_PRODUCTMANAGER"})
+    @Secured({"ROLE_ADMIN", "ROLE_SALESMANAGER", "ROLE_CUSTOMER", "ROLE_PRODUCTMANAGER"})
     @GetMapping("/{id}")
     public ResponseEntity<?> getProductById(@PathVariable String id){
 

@@ -1,14 +1,19 @@
 package com.borau.cs308demo.user;
 
 
+import com.borau.cs308demo.address.Address;
+import com.borau.cs308demo.address.AddressDTO;
 import com.borau.cs308demo.user.dto.ProfileDTO;
 import com.borau.cs308demo.user.dto.UserLoginDTO;
 import com.borau.cs308demo.user.dto.UserRegistrationDTO;
 import com.borau.cs308demo.user.dto.UserResponseDTO;
+import com.borau.cs308demo.user.exception.UserNotFoundException;
 import com.borau.cs308demo.user.exception.UserRegistrationException;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,28 +33,29 @@ public class UserService{
 
     private final UserRepository userRepo;
     private final BCryptPasswordEncoder encoder;
-    private final AuthenticationManager authenticationManager;
+    //private final AuthenticationManager authenticationManager;
 
 
 //TODO: Add proper validation utilizing UserRegistrationException (derive more exceptions from this base exception class like invalidpasswordexcetion etc)
 
 
-    public String login(UserLoginDTO loginDTO) throws Exception {
-        // Authenticate the user credentials with Spring Security
-        try {
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getPassword())
-            );
+//    public String login(UserLoginDTO loginDTO) throws Exception {
+//        // Authenticate the user credentials with Spring Security
+//        try {
+//            Authentication authentication = authenticationManager.authenticate(
+//                    new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getPassword())
+//            );
+//
+//            // Set the authentication in the SecurityContext to mark the user as logged in
+//            SecurityContextHolder.getContext().setAuthentication(authentication);
+//
+//            return "Login successful!";
+//        } catch (Exception e) {
+//            throw new Exception("Invalid username or password");
+//        }
+//    }
 
-            // Set the authentication in the SecurityContext to mark the user as logged in
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-
-            return "Login successful!";
-        } catch (Exception e) {
-            throw new Exception("Invalid username or password");
-        }
-    }
-
+    @Secured({"ROLE_ADMIN"})
     public List<User> getUsers(){
         return userRepo.findAll();
     }
@@ -96,7 +102,7 @@ public class UserService{
         roles.add("ROLE_CUSTOMER"); //ROLE_CUSTOMER, ROLE_ADMIN, ROLE_SALESMANAGER, ROLE_PRODUCTMANAGER
         newUser.setRoles(roles);
 
-        //For legal reasons we will capture first register IP of the account owner, its to-be-implemented feature.
+        //ilk kayıt ipsi yasa geregi tutmakla yukumlu cogu firma afaik
         String ip = "139.108.14.66";
         newUser.setRegisterIp(ip);
 
@@ -105,24 +111,22 @@ public class UserService{
 
         userRepo.save(newUser);
 
-        log.info("(DEBUG)(UserService.java) USER HAS BEEN SAVED : " + newUser.toString());
+        log.info("[UserService] User has been saved: " + newUser.toString());
 
         return new UserResponseDTO("Success", "User created",null);
     }
 
 
-    // New method for showing user profile
+
     public ProfileDTO getProfile() {
         // Get the currently authenticated user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String email = auth.getName();
-        User user = userRepo.findByEmail(email);
+        User user = (User) auth.getPrincipal();
 
         if (user == null) {
-            throw new RuntimeException("User not found");  // You could replace this with a custom exception
+            throw new RuntimeException("User not found");  // custom exception ile değiştirilmeli..
         }
 
-        // Build the profile DTO
         return ProfileDTO.builder()
                 .age(user.getAge())
                 .name(user.getName())
@@ -133,6 +137,9 @@ public class UserService{
                 .build();
     }
 
+    
+
+    @Secured({"ROLE_ADMIN"})
     public void deleteProfile(String id) {
 
         if (id != null) {
@@ -141,6 +148,25 @@ public class UserService{
             throw new RuntimeException("User not found");
         }
     }
+
+
+    public ResponseEntity<?> addAddress(String id, AddressDTO dto) {
+
+        User user = userRepo.findById(id).orElseThrow(() -> new UserNotFoundException("[UserService] User not found"));
+
+        Address address = new Address();
+
+        address.setStreet(dto.getStreet());
+        address.setCity(dto.getCity());
+        address.setZipCode(dto.getZipCode());
+        address.setCountry(dto.getCountry());
+
+        user.getAddresses().add(address);
+
+        userRepo.save(user);
+        return ResponseEntity.ok("Address added successfully");
+    }
+
 
 
 }

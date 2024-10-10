@@ -14,19 +14,18 @@ public class ProductService {
 
     private final ProductRepository productRepo;
 
-    public List<Product> getAllProducts(){
-
-         return productRepo.findAll();
-
+    public List<Product> getAllProducts() {
+        return productRepo.findAll();
     }
 
-
-    public Product getProductById( String id ) throws Exception {
-
+    public Product getProductById(String id) throws Exception {
         Optional<Product> product = productRepo.findById(id);
-
         return product.orElseThrow(() -> new RuntimeException("Product not found"));
+    }
 
+    // Updated method to get products by categoryId
+    public List<Product> getProductsByCategory(String categoryId) {
+        return productRepo.findByCategoryId(categoryId); // Query products by categoryId
     }
 
     /*

@@ -8,6 +8,8 @@ public class NotificationService {
 
     public void notifyUsersAboutPriceChange(Product product) {
         //Mailservisi çağrılacak ! (mail.MailService)
+
+        //Bunun kendisi ise Salesmanager'in price change metodunda çağrılacak yani delegation var (salesmanagercontroller -> notificationservice -> emailservice)
     }
 
     public void notifyUsersAboutDiscount(Product product) {

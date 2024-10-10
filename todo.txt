@@ -5,17 +5,18 @@ Not:
     - https://getbootstrap.com/docs/5.0/forms/layout/ burada çok güzel hazır düzenler var form icin, address ekleme formunu falan buradan ekleyebiliriz.
 
 Todo:
-    - Adam gibi validation eklenmesi lazım serverside, preferably bean based / javax.validation veya springfox'un validationu
     - product image ve genel olarak resource lerin nasıl yönetilecegi problem, ya image hostlanacak yada blob olarak depolanacak.   https://github.com/spring-guides/gs-uploading-files
     - Session yapılabilir, hatta caching ile kullanılabilir belki?
     - @ControllerAdvice ile dogru duzgun bi globalexception handler yapılmalı
     - Junit ve mockito ile testler yazılacak servislerin vs
     - endpoint pathları ve resource pathları adam gibi standardize edilmeli, çoğul ekleri vs vs
     - service'yi interface & implementation şeklinde yapıp S.O.C uygulamak : https://davidgiard.com/java-services-and-interfaces-in-a-spring-boot-application,
-    - swagger2 / openapi api dökümentasyonu bitmedi, bean validation annotationları gozukmuyor swaggerde
     - mail servisi ayarlanması lazım, hazır kolay kütüphane var: org.springframework.mail.javamail.JavaMailSender
     - id yi string yerine Long veya UUID yapabiliriz, genelde UUID kullanılıyor.
     - remember me https://www.baeldung.com/spring-security-remember-me
+    - başarılı & başarısız api dönütleri standardize edilmeli 3-4 cesit api dönütü var amk biri özel response donduruyor
+        digeri string donduruyor oburkusu body de objenin kendini donduruyor
+    - xxx
 
 
 
