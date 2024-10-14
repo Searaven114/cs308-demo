@@ -18,9 +18,6 @@ import java.util.Optional;
 @AllArgsConstructor
 @Log4j2
 public class ProductManagerController {
-
-
-
 //    The product managers shall add/remove products as well as product categories, and manage the stocks.
 
 //    Everything related to stock shall be done by the product manager.

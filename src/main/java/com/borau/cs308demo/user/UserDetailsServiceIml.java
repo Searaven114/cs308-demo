@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
 @Service
-public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
+public class UserDetailsServiceIml implements org.springframework.security.core.userdetails.UserDetailsService {
 
     private final UserRepository userRepository;
 

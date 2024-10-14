@@ -1,6 +1,9 @@
 package com.borau.cs308demo.config;
 
 import com.borau.cs308demo.address.Address;
+import com.borau.cs308demo.cart.Cart;
+import com.borau.cs308demo.cart.CartRepository;
+import com.borau.cs308demo.cartitem.CartItem;
 import com.borau.cs308demo.category.Category;
 import com.borau.cs308demo.category.CategoryRepository;
 import com.borau.cs308demo.distributor.Distributor;
@@ -28,6 +31,7 @@ public class Loader {
     private final ProductRepository productRepo;
     private final DistributorRepository distributorRepo;
     private final CategoryRepository categoryRepo;
+    private final CartRepository cartRepo;
 
     private final Faker fake = new Faker();
 
@@ -105,7 +109,72 @@ public class Loader {
 
             //Setting mock addresses
             user.setAddresses(addresses);
+
+            // Create and assign a cart for "fuat"
+            if (user.getUsername().equals("fuat")) {
+                Cart cart = new Cart();
+                cart.setUser(user);
+
+                // Adding CartItems to the cart
+
+                List<CartItem> cartItems = new ArrayList<>();
+
+                Optional<Product> product1 = productRepo.findById("1");
+                Optional<Product> product2 = productRepo.findById("2");
+                Optional<Product> product3 = productRepo.findById("3");
+                Optional<Product> product4 = productRepo.findById("4");
+                Optional<Product> product5 = productRepo.findById("5");
+
+                if (product1.isPresent()) {
+
+
+
+                    CartItem cartItem1 = CartItem.builder()
+                            .product(product1.get())
+                            .quantity(2) // Example quantity
+                            .build();
+
+                    CartItem cartItem2 = CartItem.builder()
+                            .product(product1.get())
+                            .quantity(2) // Example quantity
+                            .build();
+
+                    CartItem cartItem3 = CartItem.builder()
+                            .product(product1.get())
+                            .quantity(2) // Example quantity
+                            .build();
+
+                    CartItem cartItem4 = CartItem.builder()
+                            .product(product1.get())
+                            .quantity(2) // Example quantity
+                            .build();
+
+                    CartItem cartItem5 = CartItem.builder()
+                            .product(product1.get())
+                            .quantity(2) // Example quantity
+                            .build();
+
+                    cartItems.addAll( Arrays.asList(
+                            cartItem1,
+                            cartItem2,
+                            cartItem3,
+                            cartItem4,
+                            cartItem5
+                    ));
+                }
+
+                cart.setCartItems(cartItems);
+
+                cartRepo.save(cart);
+
+                // Link the cart to the user (IMPORTANT)
+                user.setCartId(cart.getId());
+
+                // Update user with cart reference
+                userRepo.save(user); // Update user with cart reference, connecting via cartId of "User" model
+            }
         }
+
 
         //Save users with addresses
         userRepo.saveAll(users);
@@ -218,7 +287,7 @@ public class Loader {
                 "LOGMXM331",
                 "Ergonomic wireless mouse with programmable buttons, ideal for productivity and creative workflows.",
                 80,
-                99.99,
+                19.99,
                 true,
                 "1"
         )));
@@ -322,15 +391,295 @@ public class Loader {
             ));
         });
 
+        laptopCat.ifPresent(category -> products.add(new Product(
+                "11",
+                "Lenovo ThinkPad X1 Carbon",
+                laptopCat.get().getId(),
+                "Lenovo",
+                "ThinkPad X1 Carbon",
+                "TPX1C1234",
+                "14-inch business laptop with Intel Core i7, 16GB RAM, 512GB SSD, known for its durability and performance.",
+                40,
+                1399.99,
+                true,
+                "2"
+        )));
+
+        monitorCat.ifPresent(category -> products.add(new Product(
+                "12",
+                "Acer Predator X34",
+                monitorCat.get().getId(),
+                "Acer",
+                "Predator X34",
+                "ACPRDX34",
+                "34-inch curved ultra-wide monitor with G-Sync support and 100Hz refresh rate, designed for gamers.",
+                15,
+                999.99,
+                true,
+                "1"
+        )));
+
+        mouseCat.ifPresent(category -> products.add(new Product(
+                "13",
+                "SteelSeries Rival 600",
+                mouseCat.get().getId(),
+                "SteelSeries",
+                "Rival 600",
+                "SSR600",
+                "Dual sensor system gaming mouse with customizable weights, 12,000 DPI, and RGB lighting.",
+                60,
+                79.99,
+                true,
+                "2"
+        )));
+
+        laptopCat.ifPresent(category -> products.add(new Product(
+                "14",
+                "Asus ROG Zephyrus G14",
+                laptopCat.get().getId(),
+                "Asus",
+                "ROG Zephyrus G14",
+                "ASROG14",
+                "14-inch gaming laptop with AMD Ryzen 9, 16GB RAM, 1TB SSD, and RTX 3060 graphics card.",
+                20,
+                1599.99,
+                true,
+                "1"
+        )));
+
+        monitorCat.ifPresent(category -> products.add(new Product(
+                "15",
+                "BenQ EX3501R",
+                monitorCat.get().getId(),
+                "BenQ",
+                "EX3501R",
+                "BEX35R",
+                "35-inch curved monitor with HDR, 100Hz refresh rate, and ultra-wide QHD resolution.",
+                10,
+                849.99,
+                true,
+                "2"
+        )));
+
+        mouseCat.ifPresent(category -> products.add(new Product(
+                "16",
+                "HyperX Pulsefire FPS Pro",
+                mouseCat.get().getId(),
+                "HyperX",
+                "Pulsefire FPS Pro",
+                "HPXFPSPRO",
+                "RGB gaming mouse with 16,000 DPI, designed for FPS gamers, and equipped with Pixart 3389 sensor.",
+                80,
+                49.99,
+                true,
+                "2"
+        )));
+
+        laptopCat.ifPresent(category -> products.add(new Product(
+                "17",
+                "Microsoft Surface Laptop 4",
+                laptopCat.get().getId(),
+                "Microsoft",
+                "Surface Laptop 4",
+                "MSLP4",
+                "13.5-inch laptop with Intel Core i5, 8GB RAM, 256GB SSD, sleek design and excellent build quality.",
+                30,
+                999.99,
+                true,
+                "2"
+        )));
+
+        monitorCat.ifPresent(category -> products.add(new Product(
+                "18",
+                "Gigabyte Aorus FI27Q",
+                monitorCat.get().getId(),
+                "Gigabyte",
+                "Aorus FI27Q",
+                "GA27FQ",
+                "27-inch gaming monitor with 165Hz refresh rate, QHD resolution, and FreeSync support.",
+                25,
+                699.99,
+                true,
+                "1"
+        )));
+
+        mouseCat.ifPresent(category -> products.add(new Product(
+                "19",
+                "Cooler Master MM710",
+                mouseCat.get().getId(),
+                "Cooler Master",
+                "MM710",
+                "CMM710",
+                "Ultra-lightweight gaming mouse with honeycomb design, 16,000 DPI sensor, and RGB lighting.",
+                50,
+                49.99,
+                true,
+                "1"
+        )));
+
+        laptopCat.ifPresent(category -> products.add(new Product(
+                "20",
+                "Acer Swift 3",
+                laptopCat.get().getId(),
+                "Acer",
+                "Swift 3",
+                "ASWIFT3",
+                "14-inch ultrabook with AMD Ryzen 7, 8GB RAM, 512GB SSD, and up to 10 hours of battery life.",
+                40,
+                799.99,
+                true,
+                "2"
+        )));
+
+        laptopCat.ifPresent(category -> products.add(new Product(
+                "21",
+                "HP Spectre x360",
+                laptopCat.get().getId(),
+                "HP",
+                "Spectre x360",
+                "HPSP360",
+                "13-inch convertible laptop with Intel Core i7, 16GB RAM, 512GB SSD, and touchscreen.",
+                20,
+                1299.99,
+                true,
+                "1"
+        )));
+
+        monitorCat.ifPresent(category -> products.add(new Product(
+                "22",
+                "ASUS ROG Swift PG259QN",
+                monitorCat.get().getId(),
+                "ASUS",
+                "ROG Swift PG259QN",
+                "ASRPG259",
+                "24.5-inch gaming monitor with 360Hz refresh rate, designed for eSports and competitive gaming.",
+                10,
+                699.99,
+                true,
+                "2"
+        )));
+
+        mouseCat.ifPresent(category -> products.add(new Product(
+                "23",
+                "Roccat Kone Pro Air",
+                mouseCat.get().getId(),
+                "Roccat",
+                "Kone Pro Air",
+                "RKPA123",
+                "Wireless ergonomic gaming mouse with RGB lighting and Titan Switch Optical technology.",
+                40,
+                99.99,
+                true,
+                "1"
+        )));
+
+        laptopCat.ifPresent(category -> products.add(new Product(
+                "24",
+                "Dell Inspiron 15 5000",
+                laptopCat.get().getId(),
+                "Dell",
+                "Inspiron 15 5000",
+                "DINSP155",
+                "15.6-inch laptop with Intel Core i5, 8GB RAM, and 256GB SSD, perfect for daily use.",
+                30,
+                699.99,
+                true,
+                "2"
+        )));
+
+        monitorCat.ifPresent(category -> products.add(new Product(
+                "25",
+                "MSI Optix MAG272C",
+                monitorCat.get().getId(),
+                "MSI",
+                "Optix MAG272C",
+                "MSOMAG27",
+                "27-inch curved gaming monitor with 165Hz refresh rate, FHD resolution, and FreeSync support.",
+                25,
+                349.99,
+                true,
+                "1"
+        )));
+
+        mouseCat.ifPresent(category -> products.add(new Product(
+                "26",
+                "Logitech G502 Lightspeed",
+                mouseCat.get().getId(),
+                "Logitech",
+                "G502 Lightspeed",
+                "LOGG502LS",
+                "Wireless gaming mouse with 25,600 DPI HERO sensor, customizable weights, and RGB lighting.",
+                45,
+                139.99,
+                true,
+                "2"
+        )));
+
+        laptopCat.ifPresent(category -> products.add(new Product(
+                "27",
+                "Apple MacBook Air M1",
+                laptopCat.get().getId(),
+                "Apple",
+                "MacBook Air M1",
+                "MBA13M1",
+                "13-inch MacBook Air with Apple M1 chip, 8GB RAM, and 256GB SSD, known for its exceptional battery life.",
+                35,
+                999.99,
+                true,
+                "1"
+        )));
+
+        monitorCat.ifPresent(category -> products.add(new Product(
+                "28",
+                "AOC Agon AG273QCG",
+                monitorCat.get().getId(),
+                "AOC",
+                "Agon AG273QCG",
+                "AOCAG273",
+                "27-inch gaming monitor with 165Hz refresh rate, G-Sync support, and QHD resolution.",
+                15,
+                599.99,
+                true,
+                "2"
+        )));
+
+        mouseCat.ifPresent(category -> products.add(new Product(
+                "29",
+                "Razer Naga Pro",
+                mouseCat.get().getId(),
+                "Razer",
+                "Naga Pro",
+                "RZNAGAPRO",
+                "Wireless modular gaming mouse with swappable side plates and 20,000 DPI optical sensor.",
+                50,
+                149.99,
+                true,
+                "1"
+        )));
+
+        laptopCat.ifPresent(category -> products.add(new Product(
+                "30",
+                "Asus VivoBook S14",
+                laptopCat.get().getId(),
+                "Asus",
+                "VivoBook S14",
+                "ASVIVO14",
+                "14-inch lightweight laptop with Intel Core i5, 8GB RAM, and 512GB SSD, designed for students and professionals.",
+                25,
+                749.99,
+                true,
+                "2"
+        )));
+
         productRepo.saveAll(products);
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━//
 
-        //
+
+
 
 
 
 
     }
-
 }

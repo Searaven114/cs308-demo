@@ -1,9 +1,16 @@
 package com.borau.cs308demo.salesmanager;
 
+import com.borau.cs308demo.product.ProductService;
+import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
+@Log4j2
+@AllArgsConstructor
 @Service
 public class SalesManagerService {
+
+    private final ProductService productService;
 
     // The sales managers are responsible for setting the prices of the products.
 

@@ -35,7 +35,7 @@ public class SecurityConfig {
                              .requestMatchers("/api/product/**")
                              .hasAnyRole("ADMIN", "CUSTOMER", "PRODUCTMANAGER", "SALESMANAGER")
 
-                             // Admin API
+                         // Admin API
                          .requestMatchers("/api/admin/**")
                          .hasRole("ADMIN")
 
@@ -45,7 +45,7 @@ public class SecurityConfig {
                          // Sales manager API
 
                         // Actuator API
-                        .requestMatchers("/actuator/**")
+                        .requestMatchers("/actuator/**", "/startup-report")
                         .hasRole("ADMIN")
 
                         // API Documentation API
@@ -65,7 +65,7 @@ public class SecurityConfig {
 
                 })
                 .sessionManagement(session -> {
-                    session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
+                    session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
                 })
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(withDefaults())

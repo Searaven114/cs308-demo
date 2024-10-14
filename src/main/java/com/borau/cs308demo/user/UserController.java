@@ -55,6 +55,9 @@ public class UserController {
         }
     }
 
+//    @PostMapping(value = "/user/update", consumes = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<?> updateUser(@RequestBody @Valid )
+
 
     @Secured({"ROLE_CUSTOMER", "ROLE_ADMIN", "ROLE_SALESMANAGER", "ROLE_PRODUCTMANAGER"})
     @GetMapping("/user/profile")
@@ -67,6 +70,7 @@ public class UserController {
         }
     }
 
+    //TODO BUNU ADMIN CONTROLLERINE TAŞI ! USERSERVICE ORADA CAGRILSIN
     @Secured({"ROLE_ADMIN"})
     @DeleteMapping("/user/{id}")
     public ResponseEntity<?> deleteUserByAdmin(@PathVariable(required = true) String id) {
@@ -78,12 +82,11 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
 
-        userService.deleteProfile(id);
+        userService.deleteProfileAdmin(id);
         return ResponseEntity.ok("User deleted successfully");
     }
 
 
-    @Secured({"ROLE_USER", "ROLE_ADMIN", "ROLE_SALESMANAGER", "ROLE_PRODUCTMANAGER"})
     @DeleteMapping("/user")
     public ResponseEntity<?> deleteOwnProfile() {
 
@@ -133,6 +136,8 @@ public class UserController {
         return userService.addAddress(user.getId(), dto);
     }
     // TODO "If you want more control over validation, you can create a custom @ExceptionHandler method for MethodArgumentNotValidException to catch validation errors globally."
+
+
 
 
 

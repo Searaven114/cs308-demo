@@ -25,20 +25,25 @@ public class CategoryService {
 
     public List<Category> findAll() {
         return categoryRepo.findAll();
+
     }
 
     public Optional<Category> findById(String id) {
         return categoryRepo.findById(id);
+
     }
 
     public Category save(Category category) {
         return categoryRepo.save(category);
+
     }
 
     public void deleteById(String id) {
         categoryRepo.deleteById(id);
+
     }
 
+    //Productmanager controllerde çağrılır.
     public Category update(String id, Category categoryDetails) {
         return categoryRepo.findById(id)
                 .map(category -> {

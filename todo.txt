@@ -1,7 +1,7 @@
 Not:
     - PC componentleri satan bir firma olarak başlattım projeyi, ileride değiştirmek gerekirse değiştirilebilir.
     - https://www.baeldung.com/java-validation
-    - şöyle bi https://prnt.sc/_Wi31TYFvKAm fantezi  yapılabilir notification, mockBank vs servisleri ayırmak için
+    - şöyle bi https://prnt.sc/_Wi31TYFvKAm fantezi  yapılabilir notification, mockBank vs servisleri ayırmak için, proje portfolyoda guzel gozukur ise alımlar vs icin
     - https://getbootstrap.com/docs/5.0/forms/layout/ burada çok güzel hazır düzenler var form icin, address ekleme formunu falan buradan ekleyebiliriz.
 
 Todo:
@@ -12,11 +12,15 @@ Todo:
     - endpoint pathları ve resource pathları adam gibi standardize edilmeli, çoğul ekleri vs vs
     - service'yi interface & implementation şeklinde yapıp S.O.C uygulamak : https://davidgiard.com/java-services-and-interfaces-in-a-spring-boot-application,
     - mail servisi ayarlanması lazım, hazır kolay kütüphane var: org.springframework.mail.javamail.JavaMailSender
-    - id yi string yerine Long veya UUID yapabiliriz, genelde UUID kullanılıyor.
     - remember me https://www.baeldung.com/spring-security-remember-me
     - başarılı & başarısız api dönütleri standardize edilmeli 3-4 cesit api dönütü var amk biri özel response donduruyor
         digeri string donduruyor oburkusu body de objenin kendini donduruyor
-    - xxx
+    - universal ve crypto-safe olması icin ObjectId'den UUID type'si ile java.util.UUID'e geçiş yapmamız lazım ! (private UUID userId) yalnız baya ağır refactoring gerekecek
+    - mongodb indexingi uygulanmadı tam, dogru duzgun uygulanması lazım modellere
+    - https://www.youtube.com/watch?v=CXdvZXgFWus, ben direkt pagination sectim baya bi yapıp sildikten sonra, sorting falan da kolay bunda
+        https://www.baeldung.com/spring-data-jpa-pagination-sorting
+        https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/domain/Pageable.html
+        yalnız bunun frontendde nasıl değerlendirilmesi gerektiği hakkında hiçbir fikrim yok, react kolayca yapar dedi gpt
 
 
 
@@ -34,8 +38,7 @@ Todo:
 
 
 
-
-
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━//
 
 using Redis in an eCommerce application is both reasonable and viable. Redis is commonly used in eCommerce apps for various purposes due to its speed and efficiency. Here are a few ways Redis can be useful in your project:
 
@@ -46,3 +49,28 @@ Caching: You can cache frequently accessed data, such as product information, ca
 Shopping Cart: Redis can be used to store the user's shopping cart data, especially for non-logged-in users, making it quick to retrieve and modify. Since Redis supports expiring data, it’s perfect for temporary storage like carts.
 
 Rate Limiting and Throttling: You can use Redis to implement rate-limiting mechanisms for user actions such as API calls, form submissions, or product purchases. This ensures fair use of resources and prevents abuse.
+
+
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━//
+        @Autowired
+            private MockMvc mockMvc;
+
+            @Test
+            void sayHello() throws Exception {
+                mockMvc.perform(get("/hello"))
+                       .andExpect(status().isOk())
+                       .andExpect(content().string("Hello, Spring Boot!"));
+               }
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━//
+
+Here's the full code for the Merge Carts feature, which merges the cart of a logged-out user (usually stored in a session) with their existing cart once they log in.
+
+Steps:
+    Identify Logged-Out Cart: This cart might be stored in the session or as a temporary cart.
+
+    Merge Logic: When the user logs in, the system merges the items from the session cart with the existing cart tied to the user's account.
+
+    Handle Quantity Adjustments: If the same product exists in both carts, adjust the quantities.
+
+
+//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━//

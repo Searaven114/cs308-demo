@@ -29,21 +29,6 @@ public class DistributorService {
         distributorRepo.deleteById(id);
     }
 
-    /*public Distributor update(String id, Distributor distributorDetails) {
-        return distributorRepo.findById(id)
-                .map(distributor -> {
-                    distributor.setName(distributorDetails.getName());
-                    distributor.setAddress(distributorDetails.getAddress());
-                    distributor.setPhone(distributorDetails.getPhone());
-                    distributor.setWebsite(distributorDetails.getWebsite());
-                    distributor.setIsActive(distributorDetails.isActive());
-                    return distributorRepo.save(distributor);
-                })
-                .orElseGet(() -> {
-                    distributorDetails.setId(id);
-                    return distributorRepo.save(distributorDetails);
-                });
-    }*/
 }
 
 

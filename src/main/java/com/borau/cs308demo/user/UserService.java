@@ -65,9 +65,6 @@ public class UserService{
 
         User check = userRepo.findByEmail( dto.getEmail() );
 
-        //geliştirilebilir validation, frontend HTML form attributeleri 1. duvar, burada javax persistence bean validation annotationları
-        // 2. duvar olmalı, annotation kullanılmazsa olabilir nullcheckli bu versiyon.
-
         if (dto.getEmail() == null || dto.getEmail().isEmpty()) {
             throw new UserRegistrationException("Email cannot be null or empty!");
         }
@@ -119,12 +116,13 @@ public class UserService{
 
 
     public ProfileDTO getProfile() {
-        // Get the currently authenticated user
+
+        // Retrieving the Principal from security context to satisfy authorization
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) auth.getPrincipal();
 
         if (user == null) {
-            throw new RuntimeException("User not found");  // custom exception ile değiştirilmeli..
+            throw new UserNotFoundException("User not found");
         }
 
         return ProfileDTO.builder()
@@ -140,13 +138,37 @@ public class UserService{
     
 
     @Secured({"ROLE_ADMIN"})
-    public void deleteProfile(String id) {
+    public void deleteProfileAdmin(String id) {
 
         if (id != null) {
-            userRepo.deleteById(id);
+            //TODO dedigim gibi, kullanıcının arkada ona baglı bir kayıt bırakmaması lazım
+
+            Optional<User> user = userRepo.findById(id);
+
+            user.ifPresent( target -> {
+
+                log.info("[UserService] Setting isActive of user with id: {}", id);
+                target.setIsActive(false);
+                //TODO Cleanup...
+
+            });
+
         } else {
             throw new RuntimeException("User not found");
         }
+    }
+
+
+    public void deleteProfile( String id ){
+        if (id != null){
+            //TODO Burada o userden kalan her şeyin bağlantılı olarak silinmesi gerekiyor yetim kalmaması için,
+            //TODO mesela adresleri, Cartı, mail gönderilecekler listesi,
+            //TODO şimdi fark ettim ki, silmek yerine UserDetails interfacesinden inherit ettiğimiz "isActive" değişkeni var, bunu 1 -> 0 yapmamız lazım
+            //TODO "silinmiş" kabul etmek için, gerçekte de öyle, komple DB den silmek yasal degil, 3 ay muhafaza edilmesi gerekiyor by default, veri istem talebi gelirse
+            //TODO daha uzun süre muhafaza edilebiliyor. biz sadece Boolean isActive = false; yaparız kullanıcıdan silme isteği gelirse.
+        }
+
+        throw new UserNotFoundException("User not found");
     }
 
 

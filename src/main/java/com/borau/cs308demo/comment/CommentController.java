@@ -8,7 +8,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/comments")
 public class CommentController {
-/*
+
     private final CommentService commentService;
 
     // Add a new comment
@@ -37,5 +37,5 @@ public class CommentController {
     @GetMapping("/all/{productId}")
     public List<Comment> getAllComments(@PathVariable String productId) {
         return commentService.getAllCommentsForProduct(productId);
-    }*/
+    }
 }

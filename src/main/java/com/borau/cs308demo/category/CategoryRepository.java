@@ -13,4 +13,10 @@ public interface CategoryRepository extends MongoRepository<Category, String> {
     Boolean existsByName(String name);
 
     Optional<Category> findByNameAndIsActiveTrue(String name);
+
+    // Find by category name instead of id
+    Optional<Category> findByName(String name);
+
+    // Delete by category name
+    void deleteByName(String name);
 }

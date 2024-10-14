@@ -20,7 +20,7 @@ public class Distributor {
     private String address;
     private String phone;
     private String website;
-    private boolean isActive; // Operational/non operational : distributor listelerken ....isActiveTrue ekle sonuna, admin paneline de distributor kontrolü verilir.
+    private boolean isActive;
 
     public Distributor(String name, String address, String phone, String website, boolean isActive) {
         this.name = name;

@@ -1,7 +1,10 @@
 package com.borau.cs308demo.user;
 
+import com.borau.cs308demo.cart.Cart;
+import com.borau.cs308demo.order.Order;
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,7 +25,10 @@ public class User implements UserDetails {
 
     @Id
     private String id;
+
+    @Indexed
     private String email;
+
     private String password;
     private String name;
     private String surname;
@@ -33,8 +39,9 @@ public class User implements UserDetails {
     private Set<String> roles;
     private String registerIp;
     private String registerDate;
-    //private Cart cart;
-    //private List<Order> orders;
+    private String cartId;
+    private List<Order> orders;
+    private Boolean isActive = true;
     //private List<Product> wishlist;  YADA  private Wishlist wishlist;
 
     // müşteri ya direkt cc/havale ile ödeme yapacak and/or bakiye yükleme şeklinde yapacak, dizayn tarzına bağlı olarak
@@ -98,7 +105,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return UserDetails.super.isEnabled();
+        return isActive;
     }
 }
 

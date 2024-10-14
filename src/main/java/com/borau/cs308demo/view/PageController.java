@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+//mvc
 @AllArgsConstructor
 @Controller
 public class PageController {
@@ -25,18 +26,6 @@ public class PageController {
     public String showHomePage() {
         return "index";
     }
-
-    /*@ResponseBody
-    @GetMapping("/")
-    public ResponseEntity<?> showHomePage() {
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-        String user_email = auth.getName();
-        User user = userRepo.findByEmail(user_email);
-        return ResponseEntity.ok().body( userService.getProfile() );
-
-    }*/
 
     @GetMapping("/error")
     public String showErrorPage() {
