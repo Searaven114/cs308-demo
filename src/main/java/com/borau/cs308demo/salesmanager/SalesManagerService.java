@@ -19,7 +19,8 @@ public class SalesManagerService {
 
     // They shall also view all the invoices in a given date range, can print them or save them as “pdf” files.
 
-    // Last but not least, they shall calculate the revenue and loss/profit in between given dates and view a chart of it.  (bu ne aq ellemem ben bunu)
+    // Last but not least, they shall calculate the revenue and loss/profit in between given dates and view a chart of it.
+
 
 
 

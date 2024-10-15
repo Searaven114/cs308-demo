@@ -1,30 +1,27 @@
-package com.borau.cs308demo.config;
+package com.borau.cs308demo.config.populator;
 
-import com.borau.cs308demo.address.Address;
-import com.borau.cs308demo.cart.Cart;
 import com.borau.cs308demo.cart.CartRepository;
-import com.borau.cs308demo.cartitem.CartItem;
 import com.borau.cs308demo.category.Category;
 import com.borau.cs308demo.category.CategoryRepository;
-import com.borau.cs308demo.distributor.Distributor;
 import com.borau.cs308demo.distributor.DistributorRepository;
 import com.borau.cs308demo.product.Product;
 import com.borau.cs308demo.product.ProductRepository;
-import com.borau.cs308demo.user.User;
 import com.borau.cs308demo.user.UserRepository;
 import com.github.javafaker.Faker;
 import jakarta.annotation.PostConstruct;
+
+import java.util.*;
+
 import lombok.AllArgsConstructor;
-import org.springframework.context.annotation.Bean;
+
+import lombok.extern.log4j.Log4j2;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
-import java.util.*;
-
+@Log4j2
 @AllArgsConstructor
 @Component
-public class Loader {
+public class ProductPopulator {
 
     private final UserRepository userRepo;
     private final BCryptPasswordEncoder encoder;
@@ -40,189 +37,9 @@ public class Loader {
     public void init() {
 
 
-        // Clean the collection to avoid duplicates on restart
-        userRepo.deleteAll();
-
-        // Create fake users with addresses
-        List<User> users = Arrays.asList(
-                new User("fuat", encoder.encode("avni"), "fuat", "05665127700"),
-                new User("admin", encoder.encode("adminpw"), "admin@example.com", fake.phoneNumber().phoneNumber()),
-                new User("salesmanager", encoder.encode("salespw"), "sales@example.com", fake.phoneNumber().phoneNumber()),
-                new User("productmanager", encoder.encode("productpw"), "product@example.com", fake.phoneNumber().phoneNumber()),
-                new User("customer1", encoder.encode("customerpw"), "customer1@example.com", fake.phoneNumber().phoneNumber()),
-                new User("customer2", encoder.encode("customerpw"), "customer2@example.com", fake.phoneNumber().phoneNumber()),
-                new User("customer3", encoder.encode("customerpw"), "customer3@example.com", fake.phoneNumber().phoneNumber())
-        );
-
-
-        for (User user : users) {
-            Set<String> roles = new HashSet<>();
-
-            if ("admin@example.com".equals(user.getUsername())) {
-                roles.add("ROLE_ADMIN");
-                roles.add("ROLE_SALESMANAGER");
-                roles.add("ROLE_PRODUCTMANAGER");
-                roles.add("ROLE_CUSTOMER");
-
-            } else if ("sales@example.com".equals(user.getUsername())) {
-                roles.add("ROLE_SALESMANAGER");
-                roles.add("ROLE_CUSTOMER");
-
-            } else if ("product@example.com".equals(user.getUsername())) {
-                roles.add("ROLE_PRODUCTMANAGER");
-                roles.add("ROLE_CUSTOMER");
-            } else {
-                roles.add("ROLE_CUSTOMER");
-            }
-
-            //Setting Roles
-            user.setRoles(roles);
-
-            //Setting mock IPv4 address
-            user.setRegisterDate(LocalDateTime.now().toString());
-            user.setRegisterIp(fake.internet().ipV4Address());
-
-            //Setting mock taxId
-            String taxId = fake.idNumber().valid();
-            user.setTaxId(taxId);
-
-            //Setting mock age
-            String age = fake.number().digits(3);
-            user.setAge(age);
-
-            List<Address> addresses = new ArrayList<>();
-
-            int number = fake.number().numberBetween(1, 10);
-
-            if (number >= 4) {
-                //addresses.add(new Address(fake.address().streetName(), fake.address().city(), fake.address().zipCode(), fake.address().country()));
-
-            } else if (number < 3) {
-                //addresses.add(new Address(fake.address().streetName(), fake.address().city(), fake.address().zipCode(), fake.address().country()));
-                //addresses.add(new Address(fake.address().streetName(), fake.address().city(), fake.address().zipCode(), fake.address().country(), fake.lorem().characters(30)));
-
-            } else {
-                //addresses.add(new Address(fake.address().streetName(), fake.address().city(), fake.address().zipCode(), fake.address().country()));
-                //addresses.add(new Address(fake.address().streetName(), fake.address().city(), fake.address().zipCode(), fake.address().country()));
-                //addresses.add(new Address(fake.address().streetName(), fake.address().city(), fake.address().zipCode(), fake.address().country(), fake.lorem().characters(25)));
-            }
-
-            //Setting mock addresses
-            user.setAddresses(addresses);
-
-            // Create and assign a cart for "fuat"
-            if (user.getUsername().equals("fuat")) {
-                Cart cart = new Cart();
-                cart.setUser(user);
-
-                // Adding CartItems to the cart
-
-                List<CartItem> cartItems = new ArrayList<>();
-
-                Optional<Product> product1 = productRepo.findById("1");
-                Optional<Product> product2 = productRepo.findById("2");
-                Optional<Product> product3 = productRepo.findById("3");
-                Optional<Product> product4 = productRepo.findById("4");
-                Optional<Product> product5 = productRepo.findById("5");
-
-                if (product1.isPresent()) {
-
-
-
-                    CartItem cartItem1 = CartItem.builder()
-                            .product(product1.get())
-                            .quantity(2) // Example quantity
-                            .build();
-
-                    CartItem cartItem2 = CartItem.builder()
-                            .product(product1.get())
-                            .quantity(2) // Example quantity
-                            .build();
-
-                    CartItem cartItem3 = CartItem.builder()
-                            .product(product1.get())
-                            .quantity(2) // Example quantity
-                            .build();
-
-                    CartItem cartItem4 = CartItem.builder()
-                            .product(product1.get())
-                            .quantity(2) // Example quantity
-                            .build();
-
-                    CartItem cartItem5 = CartItem.builder()
-                            .product(product1.get())
-                            .quantity(2) // Example quantity
-                            .build();
-
-                    cartItems.addAll( Arrays.asList(
-                            cartItem1,
-                            cartItem2,
-                            cartItem3,
-                            cartItem4,
-                            cartItem5
-                    ));
-                }
-
-                cart.setCartItems(cartItems);
-
-                cartRepo.save(cart);
-
-                // Link the cart to the user (IMPORTANT)
-                user.setCartId(cart.getId());
-
-                // Update user with cart reference
-                userRepo.save(user); // Update user with cart reference, connecting via cartId of "User" model
-            }
-        }
-
-
-        //Save users with addresses
-        userRepo.saveAll(users);
-
-
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━//
-
-        distributorRepo.deleteAll();
-
-        List<Distributor> distributors = Arrays.asList(
-
-                new Distributor(
-                        "1",
-                        "Aral A.Ş",
-                        fake.phoneNumber().phoneNumber(),
-                        fake.address().fullAddress(),
-                        fake.internet().url(),
-                        true
-                ),
-                new Distributor(
-                        "2",
-                        "Bircom",
-                        fake.phoneNumber().phoneNumber(),
-                        fake.address().fullAddress(),
-                        fake.internet().url(),
-                        true
-                )
-        );
-
-        distributorRepo.saveAll(distributors);
-
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━//
-
-        categoryRepo.deleteAll();
-
-        List<Category> categories = Arrays.asList(
-
-                new Category("1", "Laptop", true),
-                new Category("2", "Monitor", true),
-                new Category("3", "Keyboard", true),
-                new Category("4", "Mouse", true)
-        );
-
-        categoryRepo.saveAll(categories);
-
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━//
-
         productRepo.deleteAll();
+
+        log.info("[ProductPopulator] Clearing Product Collection.");
 
         Optional<Category> monitorCat = categoryRepo.findById("2");
         Optional<Category> laptopCat = categoryRepo.findById("1");
@@ -231,7 +48,6 @@ public class Loader {
         List<Product> products = new ArrayList<>();
 
         if (monitorCat.isPresent()) {
-            // Product 1
             products.add(new Product(
                     "1",
                     "Dell UltraSharp Monitor",
@@ -249,7 +65,7 @@ public class Loader {
             throw new IllegalStateException("Category with id '1' is not found.");
         }
 
-        // Add products using predefined categories
+
         monitorCat.ifPresent(category -> products.add(new Product(
                 "2",
                 "Dell UltraSharp Monitor",
@@ -672,14 +488,6 @@ public class Loader {
         )));
 
         productRepo.saveAll(products);
-
-//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━//
-
-
-
-
-
-
 
     }
 }

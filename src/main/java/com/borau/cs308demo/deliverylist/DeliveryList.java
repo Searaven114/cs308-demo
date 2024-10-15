@@ -20,4 +20,3 @@ public class DeliveryList {
 //          and a field showing whether the delivery has been completed or not.
 }
 
-// B

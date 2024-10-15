@@ -2,6 +2,7 @@ package com.borau.cs308demo.category;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.Optional;
 
 @Log4j2
 @AllArgsConstructor
+//@Secured({"ROLE_ADMIN", "ROLE_PRODUCTMANAGER"})
 @Service
 public class CategoryService {
 

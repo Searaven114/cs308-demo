@@ -35,14 +35,19 @@ public class User implements UserDetails {
     private String phone;
     private String age;
     private String taxId;
+
+    //ileride max address sayısı belirlenmesi lazım, @Max ile yapılır belki
     private List<Address> addresses;
+
     private Set<String> roles;
     private String registerIp;
     private String registerDate;
-    private String cartId;
+    private Cart cart;
     private List<Order> orders;
     private Boolean isActive = true;
     //private List<Product> wishlist;  YADA  private Wishlist wishlist;
+
+
 
     // müşteri ya direkt cc/havale ile ödeme yapacak and/or bakiye yükleme şeklinde yapacak, dizayn tarzına bağlı olarak
     // bu field'i kullanabiliriz. Daha kaliteli bir ödeme sistemi entegre edilebilir tabi, yada "Yemeksepeti Cüzdan" gibi
@@ -108,7 +113,3 @@ public class User implements UserDetails {
         return isActive;
     }
 }
-
-
-//A customer has the following properties at the very least:
-// ID, name, tax ID, e-mail address, home address, and password

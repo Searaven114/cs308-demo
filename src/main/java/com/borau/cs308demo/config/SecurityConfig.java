@@ -25,28 +25,27 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(req->{
                      req
-
-                         //TODO
-                         // buradakiler ayrılması lazım, bi kısmı /api/auth/ olarak digerleri ise direkt thymeleaf sayfası oldugu icin
-                         // komple ** ile alan ayrılması lazım, direkt MVC'nin View'i oluyorlar.
-                         .requestMatchers("/login","/api/user","/api/user/profile","/", "/index", "/error", "/api/user", "api/login", "/register","/about")
+                         .requestMatchers("/login","/api/user","/api/user/profile","/", "/index", "/error", "/api/user", "/register","/about")
                          .permitAll()
 
-                             .requestMatchers("/api/product/**")
-                             .hasAnyRole("ADMIN", "CUSTOMER", "PRODUCTMANAGER", "SALESMANAGER")
+//                         .requestMatchers("/api/product/**")
+//                         .hasAnyRole("ADMIN", "CUSTOMER", "PRODUCTMANAGER", "SALESMANAGER")
 
                          // Admin API
                          .requestMatchers("/api/admin/**")
                          .hasRole("ADMIN")
 
-
                          // Product manager API
+                         .requestMatchers("/api/pm/**")
+                         .hasAnyRole("ADMIN","PRODUCTMANAGER")
 
                          // Sales manager API
+                         .requestMatchers("/api/sm/**")
+                         .hasAnyRole("ADMIN","SALESMANAGER")
 
-                        // Actuator API
-                        .requestMatchers("/actuator/**", "/startup-report")
-                        .hasRole("ADMIN")
+                         // Actuator API
+                         .requestMatchers("/actuator/**", "/startup-report")
+                         .hasRole("ADMIN")
 
                         // API Documentation API
                         .requestMatchers(
@@ -65,7 +64,7 @@ public class SecurityConfig {
 
                 })
                 .sessionManagement(session -> {
-                    session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
+                    session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
                 })
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(withDefaults())

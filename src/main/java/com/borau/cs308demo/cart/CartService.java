@@ -22,12 +22,15 @@ import java.util.Objects;
 @Service
 public class CartService {
 
+    // iki yol var, ya kullanıcı ile cart'ı cartId ile birbirine bağlayacağız yada kullanıcının document'inin içine bir Cart objesi embed edecegiz, genelde 2. si yapılıyor
+
+
     /*
     *  - Retreive Cart
     *  - Add product to cart
     *  - Remove product from cart
     *  - Clear the cart
-    *  - Checkout? yada order
+    *  - Checkout? yada order -> checkoutta mesela addressi olması lazım tamamlanması icin, address yoksa kullanıcıya bildirim gitmeli adresin yok diye.
     *  - (ileri seviye) Check Stock Availability -> cart'a ekledigi urunlere 4 ay sonra gelip baktıgında illa stok durumu farklı olacaktır, belirli bir işlem/sürede tetiklenen bu fonksiyon,
     *       cartta stogu bitmis urun olunca carrtan otomatik olarak çıkartmalı o ürünü ve (We have removed x, y and z due to no stock available) gibi bir mesaj döndürmeli.
     *
@@ -203,6 +206,7 @@ public class CartService {
 
 //    // Merge the session cart with the user's cart
 //    private void mergeCarts(Cart sessionCart, Cart userCart) {
+
 //        for (CartItem sessionCartItem : sessionCart.getCartItems()) {
 //            boolean productExists = false;
 //

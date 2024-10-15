@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Getter
 @Setter
 @Document(collection = "products")
@@ -22,14 +23,14 @@ public class Product {
     @Indexed(unique = true)
     private String categoryId; // Reference to the category ID instead of the Category object
 
-    private String brand; //Asus
-    private String model; //VG259QM
-    private String serialNumber; //V551712
-    private String description; //Lorem ipsum dolor sit amet...
-    private int quantityInStock; //44
-    private double basePrice; //400.0
-    private boolean warrantyStatus; //2
-    private String distributorId; //Vatan
+    private String brand;           // Asus
+    private String model;           // VG259QM
+    private String serialNumber;    // V551712
+    private String description;     // Lorem ipsum dolor sit amet...
+    private int quantityInStock;    // 44
+    private double basePrice;       // 400.0
+    private boolean warrantyStatus; // 2
+    private String distributorId;   // Vatan
     // List<String> commentIds ?
 
     // Popularity metric, updated based on purchases and wishlist additions(?)

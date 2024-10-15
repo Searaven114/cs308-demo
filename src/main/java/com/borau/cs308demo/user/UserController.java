@@ -59,10 +59,18 @@ public class UserController {
 //    public ResponseEntity<?> updateUser(@RequestBody @Valid )
 
 
-    @Secured({"ROLE_CUSTOMER", "ROLE_ADMIN", "ROLE_SALESMANAGER", "ROLE_PRODUCTMANAGER"})
+    @Secured({"ROLE_CUSTOMER", "ROLE_ADMIN", "ROLE_SALESMANAGER", "ROLE_PRODUCTMANAGER", "PRODUCTMANAGER"})
     @GetMapping("/user/profile")
     public ResponseEntity<?> showProfile() {
         try {
+
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication != null) {
+                authentication.getAuthorities().forEach(authority -> {
+                    log.debug("Authority: " + authority.getAuthority());
+                });
+            }
+
             ProfileDTO profile = userService.getProfile();
             return ResponseEntity.ok().body(profile);
         } catch (RuntimeException e) {
@@ -71,20 +79,20 @@ public class UserController {
     }
 
     //TODO BUNU ADMIN CONTROLLERINE TAŞI ! USERSERVICE ORADA CAGRILSIN
-    @Secured({"ROLE_ADMIN"})
-    @DeleteMapping("/user/{id}")
-    public ResponseEntity<?> deleteUserByAdmin(@PathVariable(required = true) String id) {
-
-
-        User userToDelete = userRepo.findById(id).orElse(null);
-
-        if (userToDelete == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
-        }
-
-        userService.deleteProfileAdmin(id);
-        return ResponseEntity.ok("User deleted successfully");
-    }
+//    @Secured({"ROLE_ADMIN"})
+//    @DeleteMapping("/user/{id}")
+//    public ResponseEntity<?> deleteUserByAdmin(@PathVariable(required = true) String id) {
+//
+//
+//        User userToDelete = userRepo.findById(id).orElse(null);
+//
+//        if (userToDelete == null) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+//        }
+//
+//        userService.deleteProfileAdmin(id);
+//        return ResponseEntity.ok("User deleted successfully");
+//    }
 
 
     @DeleteMapping("/user")

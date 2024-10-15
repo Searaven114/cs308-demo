@@ -18,4 +18,9 @@ public class CartItem {
     private String id;
     private Product product;
     private Integer quantity;
+
+    public CartItem(Product product, Integer quantity) {
+        this.product = product;
+        this.quantity = quantity;
+    }
 }

@@ -44,40 +44,39 @@ public class AdminController {
 
     }
 
-    @GetMapping("/order/show-orders-by-id/{id}")
+    @GetMapping("/order/show-orders-by-userid/{id}")
     public ResponseEntity<?> getOrdersById(
             @PathVariable String id,
             @RequestParam( name = "status", required = false) OrderStatus status)
     {
         List<Order> orders = orderService.getAllOrdersByUserIdAdmin( id, status );
         return ResponseEntity.ok().body( orders );
-
     }
 
-    /*@GetMapping("/users/{userId}")
-    public User getUser(@PathVariable String userId) {
-        // Code to get user details
-        return userService.getUserById(userId);
-    }
+//    @GetMapping("/users/{userId}")
+//    public User getUser(@PathVariable String userId) {
+//        // Code to get user details
+//        return userService.getUserById(userId);
+//    }
+//
+//    @PostMapping("/users")
+//    public User createUser(@RequestBody User user) {
+//        // Code to create a new user
+//        return userService.createUser(user);
+//    }
+//
+//    @PutMapping("/users/{userId}")
+//    public User updateUser(@PathVariable Long userId, @RequestBody User user) {
+//        // Code to update user details
+//        return userService.updateUser(userId, user);
+//    }
+//
+//    @DeleteMapping("/users/{userId}")
+//    public void deleteUser(@PathVariable Long userId) {
+//        // Code to delete a user
+//        userService.deleteUser(userId);
+//    }
 
-    @PostMapping("/users")
-    public User createUser(@RequestBody User user) {
-        // Code to create a new user
-        return userService.createUser(user);
-    }
-
-    @PutMapping("/users/{userId}")
-    public User updateUser(@PathVariable Long userId, @RequestBody User user) {
-        // Code to update user details
-        return userService.updateUser(userId, user);
-    }
-
-    @DeleteMapping("/users/{userId}")
-    public void deleteUser(@PathVariable Long userId) {
-        // Code to delete a user
-        userService.deleteUser(userId);
-    }
-*/
 //    @PostMapping("/users/{userId}/reset-password")
 //    public void resetPassword(@PathVariable String userId) {
 //        // Code to reset password
