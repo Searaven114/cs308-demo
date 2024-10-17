@@ -2,6 +2,8 @@ package com.borau.cs308demo.mail;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.mail.javamail.JavaMailSender;
+
 import org.springframework.stereotype.Service;
 
 @Log4j2
@@ -9,5 +11,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class MailService {
 
-    // "org.springframework.mail.javamail.JavaMailSender"
+    //konfigürasyon olmadan çalışmıyor. bkz. application.properties
+
+    //private final JavaMailSender mailSender;
+
+
+    public void sendDiscountNotificationMail(String[] recipients, String content){ }
+
+
+   // public void sendInvoiceMail(String recipient, PDF)
+
+
 }

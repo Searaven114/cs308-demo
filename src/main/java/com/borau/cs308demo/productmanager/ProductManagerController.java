@@ -2,6 +2,7 @@ package com.borau.cs308demo.productmanager;
 
 import com.borau.cs308demo.category.Category;
 import com.borau.cs308demo.category.CategoryService;
+import com.borau.cs308demo.category.dto.CategoryDTO;
 import com.borau.cs308demo.product.Product;
 import com.borau.cs308demo.product.ProductRepository;
 import com.borau.cs308demo.product.ProductService;
@@ -11,9 +12,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -57,6 +56,14 @@ public class ProductManagerController {
 
 
 
+    //TODO bu direkt Category türünde almamalı sanırım, dto alacak sekilde bu ve servicedeki update metodu degismeli (sanıırm)
+    @Secured({"ROLE_ADMIN", "ROLE_PRODUCTMANAGER"})
+    @GetMapping("/update-category/{id}")
+    public ResponseEntity<?> updateCategory (@PathVariable String id, @RequestBody Category category) {
+
+        return ResponseEntity.ok().body( categoryService.update(id, category));
+
+    }
 
 
     //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━PRODUCT KISMI━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━//

@@ -1,5 +1,9 @@
 package com.borau.cs308demo.product;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -18,22 +22,34 @@ public class Product {
     private String id; //6701927e78c5a70ef8d3a4e4
 
     @Indexed(unique = true)
+    @NotBlank
+    @Size(min = 3, message = "Product name must contain atleast 3 characters")
     private String title; //Asus VG259QM Monitor
 
     @Indexed(unique = true)
+    @NotBlank
     private String categoryId; // Reference to the category ID instead of the Category object
 
-    private String brand;           // Asus
-    private String model;           // VG259QM
-    private String serialNumber;    // V551712
-    private String description;     // Lorem ipsum dolor sit amet...
-    private int quantityInStock;    // 44
-    private double basePrice;       // 400.0
-    private boolean warrantyStatus; // 2
-    private String distributorId;   // Vatan
+    @NotBlank
+    private String brand;
+
+    @NotBlank
+    private String model;
+
+    @NotBlank
+    private String serialNumber;
+
+    private String description;
+    private int quantityInStock;
+
+    @Min(value = 0, message = "basePrice cannot be lower than 0")
+    private double basePrice;
+
+    private boolean warrantyStatus;
+    private String distributorId;
     // List<String> commentIds ?
 
-    // Popularity metric, updated based on purchases and wishlist additions(?)
+    // Popularity metric, updated based on purchases, buna algoritma bulmak lazım hesaplanması için.
     private double popularityPoint;
 
     // Constructor without id (used when creating new products)

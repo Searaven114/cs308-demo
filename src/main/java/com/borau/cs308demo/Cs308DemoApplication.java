@@ -1,6 +1,5 @@
 package com.borau.cs308demo;
 
-import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

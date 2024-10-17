@@ -74,8 +74,6 @@ public class SecurityConfig {
 //                        .permitAll()
 //                )
 
-
-                // Şu an login,
                 .httpBasic(withDefaults())
                 .build();
     }

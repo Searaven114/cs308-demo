@@ -12,6 +12,9 @@ public class NotificationService {
 
     //private final EmailService emailService;
 
+    // elimizde bir alıcı listesi olması lazım String[] tarzında, o alıcı listesi de "Wishlist" inde indirim/fiyat degisimi yapılan ürünlerden olan customerlerden oluşacak. yani fiyat degisimi yapıldıgıda sanırım
+    // butun wishlistlerin traverse edilmesi gerekecek...
+
     public void notifyUsersAboutPriceChange(Product product) {
         //Mailservisi çağrılacak ! (mail.MailService)
 

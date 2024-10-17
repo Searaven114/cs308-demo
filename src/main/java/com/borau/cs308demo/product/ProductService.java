@@ -1,4 +1,6 @@
 package com.borau.cs308demo.product;
+import com.borau.cs308demo.product.exception.ProductNotFoundException;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +11,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -73,9 +74,12 @@ public class ProductService {
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━//
 
-    // "ROLE_SALESMANAGER" ve veya "ROLE_ADMIN" etkileşime girecek bu abi ile
     @Secured({"ROLE_SALESMANAGER", "ROLE_ADMIN"})
     public Product updateProductPrice(String id, double newPrice) {
+
+        if (newPrice <= 0){
+            throw new IllegalArgumentException("Product price cannot be lower or equal than 0");
+        }
 
         Product product = productRepo.findById(id).orElse(null);
 
@@ -89,12 +93,11 @@ public class ProductService {
 
             return product;
         }
-        throw new IllegalArgumentException("Product not found");
+          throw new ProductNotFoundException("Product with it id " + id + " is not found");
     }
 
 
 
-    // "ROLE_SALESMANAGER" ve veya "ROLE_ADMIN" etkileşime girecek bu abi ile
     @Secured({"ROLE_SALESMANAGER", "ROLE_ADMIN"})
     public Product applyDiscount(String id, double discountRate) {
 
@@ -114,7 +117,7 @@ public class ProductService {
 
             return product;
         }
-        throw new IllegalArgumentException("Product not found");
+        throw new ProductNotFoundException("Product not found");
     }
 
 }

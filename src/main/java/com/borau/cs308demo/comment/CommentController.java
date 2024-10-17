@@ -20,6 +20,8 @@ public class CommentController {
         return commentService.addComment(productId, userId, content, rating);
     }
 
+    //TODO : userid ifşa oluyor bu sistemde, degismesi lazım. SecurityContextden çekilmeli id service kısmında
+
     // Get all approved comments for a product
     @GetMapping("/approved/{productId}")
     public List<Comment> getApprovedComments(@PathVariable String productId) {

@@ -45,7 +45,7 @@ public class User implements UserDetails {
     private Cart cart;
     private List<Order> orders;
     private Boolean isActive = true;
-    //private List<Product> wishlist;  YADA  private Wishlist wishlist;
+    private List<String> wishlist;
 
 
 

@@ -47,8 +47,7 @@ public class ProductPopulator {
 
         List<Product> products = new ArrayList<>();
 
-        if (monitorCat.isPresent()) {
-            products.add(new Product(
+        monitorCat.ifPresent(category -> products.add(new Product(
                     "1",
                     "Dell UltraSharp Monitor",
                     monitorCat.get().getId(),  // Retrieve the Category from Optional
@@ -57,13 +56,11 @@ public class ProductPopulator {
                     "D273928Q",
                     "27-inch 4K monitor with vibrant colors and sharp details, ideal for productivity and media consumption.",
                     35,
-                    550.99,
+                    1000.0,
                     true,
                     "1"
-            ));
-        } else {
-            throw new IllegalStateException("Category with id '1' is not found.");
-        }
+            )));
+
 
 
         monitorCat.ifPresent(category -> products.add(new Product(
@@ -103,7 +100,7 @@ public class ProductPopulator {
                 "LOGMXM331",
                 "Ergonomic wireless mouse with programmable buttons, ideal for productivity and creative workflows.",
                 80,
-                19.99,
+                20.0,
                 true,
                 "1"
         )));
@@ -216,7 +213,7 @@ public class ProductPopulator {
                 "TPX1C1234",
                 "14-inch business laptop with Intel Core i7, 16GB RAM, 512GB SSD, known for its durability and performance.",
                 40,
-                1399.99,
+                1400.0,
                 true,
                 "2"
         )));
@@ -230,7 +227,7 @@ public class ProductPopulator {
                 "ACPRDX34",
                 "34-inch curved ultra-wide monitor with G-Sync support and 100Hz refresh rate, designed for gamers.",
                 15,
-                999.99,
+                1000.0,
                 true,
                 "1"
         )));

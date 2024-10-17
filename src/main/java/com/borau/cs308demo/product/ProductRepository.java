@@ -25,6 +25,9 @@ public interface ProductRepository extends MongoRepository<Product, String> {
     // Find products by categoryId and sort by price with pagination
     Page<Product> findByCategoryId(String categoryId, Pageable pageable);
 
+
+    Page<Product> findAllByPopularityPoint(Pageable pageable);
+
     // Paginated search by title or description containing the search term, ignoring case
     Page<Product> findByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCase(String title, String description, Pageable pageable);
 

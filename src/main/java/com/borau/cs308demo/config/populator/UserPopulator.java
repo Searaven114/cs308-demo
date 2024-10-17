@@ -58,7 +58,7 @@ public class UserPopulator {
 
             Set<String> roles = new HashSet<>();
 
-            // Rol dağıtım kısmı
+            // Assigning roles
             if ("admin@example.com".equals(user.getUsername())) {
                 roles.add("ROLE_ADMIN");
                 roles.add("ROLE_SALESMANAGER");

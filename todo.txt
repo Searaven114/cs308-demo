@@ -15,13 +15,13 @@ Todo:
     - remember me https://www.baeldung.com/spring-security-remember-me
     - başarılı & başarısız api dönütleri standardize edilmeli 3-4 cesit api dönütü var amk biri özel response donduruyor
         digeri string donduruyor oburkusu body de objenin kendini donduruyor
-    - universal ve crypto-safe olması icin ObjectId'den UUID type'si ile java.util.UUID'e geçiş yapmamız lazım ! (private UUID userId) yalnız baya ağır refactoring gerekecek
+    - universal ve crypto-safe olması icin ObjectId'den UUID type'si ile java.util.UUID'e geçiş yapmamız lazım (private UUID userId) yalnız baya ağır refactoring gerekecek
     - mongodb indexingi uygulanmadı tam, dogru duzgun uygulanması lazım modellere
     - https://www.youtube.com/watch?v=CXdvZXgFWus, ben direkt pagination sectim baya bi yapıp sildikten sonra, sorting falan da kolay bunda
         https://www.baeldung.com/spring-data-jpa-pagination-sorting
         https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/domain/Pageable.html
         yalnız bunun frontendde nasıl değerlendirilmesi gerektiği hakkında hiçbir fikrim yok, react kolayca yapar dedi gpt
-
+    -api dönüşleri standardize edilmeli -> "ApiResponse.class" falan yapılmalı
 
 
 
@@ -74,3 +74,301 @@ Steps:
 
 
 //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━//
+
+
+
+//    public boolean updateProduct(String productId, ProductDTO productDTO) {
+//        return productRepo.findById(productId).map(product -> {
+//
+//            if (productDTO.getTitle() != null) product.setTitle(productDTO.getTitle());
+//
+//            if (productDTO.getCategoryId() != null){
+//                if ( !categoryRepo.existsById( productDTO.getCategoryId() ) ){
+//                    product.setCategoryId(productDTO.getCategoryId());
+//                } else {
+//                    throw new RuntimeException("Category ID duplicate.");
+//                }
+//            }
+//
+//            if (productDTO.getBrand() != null) product.setBrand(productDTO.getBrand());
+//
+//            if (productDTO.getModel() != null) product.setModel(productDTO.getModel());
+//
+//            if (productDTO.getSerialNumber() != null) product.setSerialNumber(productDTO.getSerialNumber());
+//
+//            if (productDTO.getDescription() != null) product.setDescription(productDTO.getDescription());
+//
+//            if (productDTO.getQuantityInStock() >= 0){
+//                product.setQuantityInStock(productDTO.getQuantityInStock());
+//            } else {
+//                throw new RuntimeException("ProductDTO quantity cannot be a negative number.");
+//            }
+//
+//            if (productDTO.getBasePrice() >= 0){
+//                product.setBasePrice(productDTO.getBasePrice());
+//            } else {
+//                throw new RuntimeException("ProductDTO basePrice cannot be a negative number.");
+//            }
+//
+//            product.setWarrantyStatus(productDTO.isWarrantyStatus());
+//
+//            if (productDTO.getDistributorId() != null){
+//                if ( !distributorRepo.existsById( productDTO.getDistributorId())){
+//                    product.setDistributorId(productDTO.getDistributorId());
+//                } else {
+//                    throw new RuntimeException("Distributor ID duplicate.");
+//                }
+//            }
+//
+//            productRepo.save(product);
+//
+//            return true;
+//
+//        }).orElse(false);
+//    }
+
+
+
+
+
+
+To send OTP (One-Time Password) to phones for authentication in a **Spring Boot** application, you can follow these steps:
+
+### Overview:
+1. **Generate OTP**: You'll need to generate a secure OTP.
+2. **Send OTP**: Use an SMS gateway API like **Twilio** or **Nexmo (Vonage)** to send the OTP to the user's phone.
+3. **Store OTP**: Optionally store the OTP temporarily (e.g., in Redis) to verify later.
+4. **Verify OTP**: Once the user enters the OTP, verify it against the stored value.
+
+Let’s break this down:
+
+### Step 1: Add Dependencies to `pom.xml`
+To send SMS, you can use **Twilio**, one of the popular services for sending OTPs via SMS. First, add the necessary dependencies.
+
+For **Twilio**:
+
+```xml
+<dependency>
+    <groupId>com.twilio.sdk</groupId>
+    <artifactId>twilio</artifactId>
+    <version>8.31.1</version> <!-- or the latest version -->
+</dependency>
+```
+
+### Step 2: Configure Twilio API
+You need to sign up for a **Twilio** account to get your credentials.
+
+In your `application.properties` or `application.yml`, add your Twilio credentials:
+
+```properties
+twilio.account.sid=your_twilio_account_sid
+twilio.auth.token=your_twilio_auth_token
+twilio.phone.number=your_twilio_phone_number
+```
+
+### Step 3: Generate OTP
+
+Here’s a simple method to generate a **6-digit OTP**:
+
+```java
+import java.security.SecureRandom;
+
+public class OtpUtil {
+
+    private static final SecureRandom random = new SecureRandom();
+
+    public static String generateOtp(int length) {
+        StringBuilder otp = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            otp.append(random.nextInt(10));  // Generates a random digit between 0 and 9
+        }
+        return otp.toString();
+    }
+}
+```
+
+### Step 4: Create Twilio Service to Send SMS
+
+Create a service that sends the OTP using Twilio’s API:
+
+```java
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+@Service
+public class SmsService {
+
+    @Value("${twilio.account.sid}")
+    private String accountSid;
+
+    @Value("${twilio.auth.token}")
+    private String authToken;
+
+    @Value("${twilio.phone.number}")
+    private String fromPhoneNumber;
+
+    public SmsService() {
+        // Initialize Twilio
+        Twilio.init(accountSid, authToken);
+    }
+
+    public void sendOtp(String toPhoneNumber, String otp) {
+        Message message = Message.creator(
+                new PhoneNumber(toPhoneNumber),  // To phone number
+                new PhoneNumber(fromPhoneNumber),  // From Twilio phone number
+                "Your OTP is: " + otp  // Message body
+        ).create();
+
+        System.out.println("OTP sent: " + message.getSid());
+    }
+}
+```
+
+### Step 5: OTP Verification Workflow
+
+1. **Send OTP Endpoint**: Create an endpoint that generates and sends the OTP.
+
+2. **Verify OTP Endpoint**: Create another endpoint where the user can submit the OTP for verification.
+
+#### OTP Controller Example:
+
+```java
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+@RestController
+@RequestMapping("/api/auth")
+public class OtpController {
+
+    private final SmsService smsService;
+    private final Map<String, String> otpStorage = new HashMap<>();  // In-memory storage; use Redis for production
+
+    public OtpController(SmsService smsService) {
+        this.smsService = smsService;
+    }
+
+    @PostMapping("/send-otp")
+    public ResponseEntity<String> sendOtp(@RequestParam String phoneNumber) {
+        // Generate OTP
+        String otp = OtpUtil.generateOtp(6);
+
+        // Store OTP in memory (for demonstration). In real-world, store in a cache like Redis with an expiry time.
+        otpStorage.put(phoneNumber, otp);
+
+        // Send OTP via SMS
+        smsService.sendOtp(phoneNumber, otp);
+
+        return ResponseEntity.ok("OTP sent to " + phoneNumber);
+    }
+
+    @PostMapping("/verify-otp")
+    public ResponseEntity<String> verifyOtp(@RequestParam String phoneNumber, @RequestParam String otp) {
+        // Check if the OTP is valid
+        if (otpStorage.containsKey(phoneNumber) && otpStorage.get(phoneNumber).equals(otp)) {
+            otpStorage.remove(phoneNumber);  // OTP verified, remove from storage
+            return ResponseEntity.ok("OTP verified successfully!");
+        } else {
+            return ResponseEntity.status(400).body("Invalid OTP");
+        }
+    }
+}
+```
+
+### Step 6: Use Redis for OTP Storage (Optional but Recommended)
+In a real-world scenario, it’s better to store the OTP temporarily in a cache like **Redis** with an expiration time (e.g., 5 minutes).
+
+Add Redis to your `pom.xml`:
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-redis</artifactId>
+</dependency>
+```
+
+Configure Redis in `application.properties`:
+
+```properties
+spring.redis.host=localhost
+spring.redis.port=6379
+```
+
+Then, modify the OTP storage logic to store the OTP in Redis with a TTL (Time-To-Live):
+
+```java
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.stereotype.Service;
+
+import java.util.concurrent.TimeUnit;
+
+@Service
+public class OtpService {
+
+    private final StringRedisTemplate redisTemplate;
+    private final SmsService smsService;
+
+    public OtpService(StringRedisTemplate redisTemplate, SmsService smsService) {
+        this.redisTemplate = redisTemplate;
+        this.smsService = smsService;
+    }
+
+    public void sendOtp(String phoneNumber) {
+        String otp = OtpUtil.generateOtp(6);
+
+        // Store OTP in Redis with a TTL of 5 minutes
+        ValueOperations<String, String> ops = redisTemplate.opsForValue();
+        ops.set(phoneNumber, otp, 5, TimeUnit.MINUTES);
+
+        // Send OTP via SMS
+        smsService.sendOtp(phoneNumber, otp);
+    }
+
+    public boolean verifyOtp(String phoneNumber, String otp) {
+        ValueOperations<String, String> ops = redisTemplate.opsForValue();
+        String storedOtp = ops.get(phoneNumber);
+
+        if (storedOtp != null && storedOtp.equals(otp)) {
+            redisTemplate.delete(phoneNumber);  // OTP verified, remove from Redis
+            return true;
+        }
+
+        return false;
+    }
+}
+```
+
+### Step 7: Testing OTP
+
+1. **POST `/api/auth/send-otp`**:
+   - **Request**: `{"phoneNumber": "+1234567890"}`
+   - Sends OTP to the specified phone number.
+
+2. **POST `/api/auth/verify-otp`**:
+   - **Request**: `{"phoneNumber": "+1234567890", "otp": "123456"}`
+   - Verifies the OTP submitted by the user.
+
+### Conclusion:
+
+- Use **Twilio** to send OTP to a user's phone.
+- You can store the OTP in memory for small projects, but **Redis** is recommended for production systems to handle expiration and distributed systems.
+- Validate the OTP when users submit it and allow or deny access based on the result.
+
+Let me know if you need further assistance or clarification!
+
+
+
+
+
+
+
+
+
+
