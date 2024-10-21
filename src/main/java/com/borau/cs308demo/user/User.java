@@ -2,6 +2,7 @@ package com.borau.cs308demo.user;
 
 import com.borau.cs308demo.cart.Cart;
 import com.borau.cs308demo.order.Order;
+import jakarta.annotation.Nonnull;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -10,6 +11,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import com.borau.cs308demo.address.Address;
+
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -42,10 +45,13 @@ public class User implements UserDetails {
     private Set<String> roles;
     private String registerIp;
     private String registerDate;
-    private Cart cart;
-    private List<Order> orders;
+
+    @Nonnull
+    private String cartId;
+
+    private List<Order> orders = new ArrayList<>();
     private Boolean isActive = true;
-    private List<String> wishlist;
+    private List<String> wishlist = new ArrayList<>();
 
 
 
@@ -55,7 +61,7 @@ public class User implements UserDetails {
     // seçerek ödemek isteyen birine özel indirim uygulanır vs vs.
     //private Double balance;
 
-    public User(String email, String password, String name, String surname, String phone, String age, String taxId, List<Address> addresses, Set<String> roles, String registerIp, String registerDate) {
+    public User(String email, String password, String name, String surname, String phone, String age, String taxId, List<Address> addresses, Set<String> roles, String registerIp, String registerDate, String cartId) {
         this.email = email;
         this.password = password;
         this.name = name;
@@ -67,6 +73,7 @@ public class User implements UserDetails {
         this.roles = roles;
         this.registerIp = registerIp;
         this.registerDate = registerDate;
+        this.cartId = cartId;  // Assign cartId during user creation
     }
 
     public User(String name, String password, String email, String phone) {

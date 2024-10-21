@@ -2,13 +2,18 @@ package com.borau.cs308demo.cart;
 
 import com.borau.cs308demo.cartitem.CartItem;
 import com.borau.cs308demo.product.Product;
+import com.borau.cs308demo.product.ProductRepository;
 import com.borau.cs308demo.product.ProductService;
+import com.borau.cs308demo.product.exception.ProductNotFoundException;
 import com.borau.cs308demo.user.User;
+import com.borau.cs308demo.user.UserRepository;
 import com.borau.cs308demo.user.UserService;
+import com.borau.cs308demo.user.exception.UserNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
-import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -16,13 +21,26 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Log4j2
 @AllArgsConstructor
 @Service
 public class CartService {
 
-    // iki yol var, ya kullanıcı ile cart'ı cartId ile birbirine bağlayacağız yada kullanıcının document'inin içine bir Cart objesi embed edecegiz, genelde 2. si yapılıyor
+    private final UserService userService;
+    private final UserRepository userRepo;
+    private final ProductRepository productRepo;
+    private final HttpSession session;
+    private final CartRepository cartRepo;
+
+
+    private void recalculateTotalPrice(Cart cart) {
+        double totalPrice = cart.getCartItems().stream()
+                .mapToDouble(item -> item.getProduct().getBasePrice() * item.getQuantity())
+                .sum();
+        cart.setTotalPrice(totalPrice);
+    }
 
 
     /*
@@ -36,173 +54,78 @@ public class CartService {
     *
     * */
 
-    private final UserService userService;
-    private final ProductService productService;
-    private final CartRepository cartRepo;
 
+    //Calışmıyor
+    public List<CartItem> getAllCartItems(String userId){
 
+        Cart cart = cartRepo.findByUserId(userId);
 
-//    public List<Product> getAllCartItems(){
-//
-//        // Retrieving the Principal from securith context to satisfy authorization
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        User user = (User) auth.getPrincipal();
-//
-//        if (user.getCart() == null) {
-//            return ""
-//        }
-//
-//        return user.getCart();
-//
-//
-//        //return this.productRepository.findAll();
-//
-//
-//
-//        return null;
-//    }
+        if (cart == null) {
+            cart = new Cart();
+            cart.setUserId(userId);
+            cart.setTotalPrice(0.0);
+        }
 
-/*
-    public String addItemById(String itemId){
-
-    // If product is in the map just increment quantity by 1.
-    // If product is not in the map with, add it with quantity 1
-
-
-        return null;
+        return cart.getCartItems();
     }
 
 
-    public String removeProductFromCart(String cartItemId){
-        try{
-            this.cartItemRepository.deleteById(cartItemId);
-        }catch (Exception e){
-            throw new RuntimeException("Failed to remove product from cart");
+
+    public void addItemToUserCart(String userId, String productId, int quantity) {
+
+        Cart cart = cartRepo.findByUserId(userId);
+
+        if (cart == null) {
+            cart = new Cart();  // Create new cart if it doesn't exist
         }
-        return "Product successfully removed from cart";
-    }
 
+        Optional<Product> productOpt = productRepo.findById(productId);
+        if (productOpt.isPresent()) {
 
-    public CartItem increaseDecreaseProductQuantity(String cartItemId, Integer value){
-        CartItem cartItem = this.cartItemRepository.findById(cartItemId)
-                .orElseThrow(() -> new RuntimeException("Could not find cart item"));
+            Product product = productOpt.get();
 
-        if(value > 0 ){
-            cartItem.setQuantity(cartItem.getQuantity() + value);
-            return this.cartItemRepository.save(cartItem);
-        }
-        else{
-            throw new RuntimeException("Product quantity should be above zero");
+            CartItem cartItem = new CartItem(product, quantity);
+
+            List<CartItem> items = cart.getCartItems();
+
+            items.add(cartItem);
+
+            //List<CartItem> items =  cart.getCartItems().add(cartItem);  // Add item to cart
+
+            recalculateTotalPrice(cart);
+
+            cartRepo.save(cart);
+
+        } else {
+            throw new ProductNotFoundException("Product not found");
         }
     }
 
 
 
-*/
+}
 
 
 
 
 
-    /*
-    public CartResponse addProductInCart(
-            String productId,
-            HttpServletRequest request
-    ){
-
-        //User user = getUserByToken(request, jwtService, this.userRepository);
-
-        Cart cart = this.cartRepository.findByUserId(user.getId());
-        Product product = this.productRepository.findById(productId).orElse(null);
-
-        LoggedUserResponse userResponse = LoggedUserResponse.builder()
-                .id(user.getId())
-                .firstname(user.getFirstName())
-                .lastname(user.getLastName())
-                .email(user.getEmail())
-                .mobileNumber(user.getMobileNumber())
-                .build();
-
-        //check if cart instance exists
-        //if not create a new cart for the user
-        if(cart == null){
-            List<CartItem> cartItems = new ArrayList<>();
-            //Create a new cart item and add it in a list
-            CartItem savedCartItem = this.cartItemRepository.save(
-                    CartItem.builder()
-                            .product(product)
-                            .quantity(1)
-                            .build()
-            );
-            cartItems.add(savedCartItem);
-
-            //create a new cart item and add them to the new cart
-            //save the new cart in the database
-            Cart savedCart = this.cartRepository.save(
-                    Cart.builder()
-                            .user(user)
-                            .cartItems(cartItems)
-                            .build()
-            );
-
-            return CartResponse.builder()
-                    .id(savedCart.getId())
-                    .user(userResponse)
-                    .cartItems(savedCart.getCartItems())
-                    .build();
-        }
-        else {
-            //get all as a list cart items from cart
-            //check if product already exists in one of the cart items
-            if(cart.getCartItems() != null){
-                for (CartItem cartItem : cart.getCartItems()) {
-                    assert product != null;
-                    if (Objects.equals(cartItem.getProduct().getId(), product.getId())) {
-                        //if product exist then add a 1 to the quantity of the product item
-                        cartItem.setQuantity(cartItem.getQuantity() + 1);
-
-                        //save,update and return the cart item
-                        this.cartRepository.save(cart);
-
-                        return CartResponse.builder()
-                                .id(cart.getId())
-                                .user(userResponse)
-                                .cartItems(cart.getCartItems())
-                                .build();
-                    }
-                }
-            }
-
-            //if product does not exist
-            //create a new cart item with product and quantity as 1
-            CartItem savedCartItem = this.cartItemRepository.save(
-                    CartItem.builder()
-                            .product(product)
-                            .quantity(1)
-                            .build()
-            );
-            //add the cart item in the cart
-            if(cart.getCartItems() != null){
-                cart.getCartItems().add(savedCartItem);
-            }else{
-                List<CartItem> cartItemList = new ArrayList<>();
-                cartItemList.add(savedCartItem);
-                cart.setCartItems(cartItemList);
-            }
-
-            //save,update and return the cart item
-            this.cartRepository.save(cart);
-            return CartResponse.builder()
-                    .id(cart.getId())
-                    .user(userResponse)
-                    .cartItems(cart.getCartItems())
-                    .build();
-        }
-
-    }*/
 
 
-    //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //    // Merge the session cart with the user's cart
 //    private void mergeCarts(Cart sessionCart, Cart userCart) {
@@ -243,4 +166,3 @@ public class CartService {
 
 
 
-}

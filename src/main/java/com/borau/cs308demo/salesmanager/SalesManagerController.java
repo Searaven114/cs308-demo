@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
+import javax.print.attribute.standard.Media;
 import java.util.Optional;
 
 @Log4j2
@@ -40,7 +41,7 @@ public class SalesManagerController {
 
     // Last but not least, they shall calculate the revenue and loss/profit in between given dates and view a chart of it.
 
-            //loss u nasıl simüle edecez amk, chart kısmı kolay, vardır kütüphanesi
+            //loss u nasıl simüle edecez aq, chart kısmı kolay, vardır kütüphanesi
 
 
 
@@ -75,7 +76,6 @@ public class SalesManagerController {
     public ResponseEntity<?> applyDiscount(@PathVariable String id, @PathVariable double discountRate) {
 
         try {
-
             if (discountRate < 0 || discountRate > 100) {
                 return ResponseEntity.badRequest().body("Discount rate must be between 0 and 100.");
             }

@@ -9,6 +9,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
@@ -52,6 +54,11 @@ public class Product {
     // Popularity metric, updated based on purchases, buna algoritma bulmak lazım hesaplanması için.
     private double popularityPoint;
 
+//    private List<String> images;
+
+
+
+
     // Constructor without id (used when creating new products)
     public Product(String name, String categoryId, String brand, String model, String serialNumber, String description, int quantityInStock, double basePrice, boolean warrantyStatus, String distributor) {
         this.title = name;
@@ -64,6 +71,7 @@ public class Product {
         this.basePrice = basePrice;
         this.warrantyStatus = warrantyStatus;
         this.distributorId = distributor;
+        this.popularityPoint  = 0;
     }
 
     // Constructor with id (used when retrieving or updating existing products)

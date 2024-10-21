@@ -1,6 +1,6 @@
 package com.borau.cs308demo.config.populator;
 
-import com.borau.cs308demo.cart.CartRepository;
+//import com.borau.cs308demo.cart.CartRepository;
 import com.borau.cs308demo.category.Category;
 import com.borau.cs308demo.category.CategoryRepository;
 import com.borau.cs308demo.distributor.DistributorRepository;
@@ -28,7 +28,7 @@ public class ProductPopulator {
     private final ProductRepository productRepo;
     private final DistributorRepository distributorRepo;
     private final CategoryRepository categoryRepo;
-    private final CartRepository cartRepo;
+    //private final CartRepository cartRepo;
 
     private final Faker fake = new Faker();
 

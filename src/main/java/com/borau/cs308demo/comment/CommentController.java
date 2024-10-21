@@ -1,6 +1,11 @@
 package com.borau.cs308demo.comment;
 
+import com.borau.cs308demo.comment.dto.CommentDTO;
+import com.borau.cs308demo.user.User;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -11,33 +16,31 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    // Add a new comment
-    @PostMapping("/add")
-    public Comment addComment(@RequestParam String productId,
-                              @RequestParam String userId,
-                              @RequestParam String content,
-                              @RequestParam int rating) {
-        return commentService.addComment(productId, userId, content, rating);
-    }
+//        private String productId;
+//        private String userId;
+//        private String content;
+//        private int rating;
 
-    //TODO : userid ifşa oluyor bu sistemde, degismesi lazım. SecurityContextden çekilmeli id service kısmında
+    @PostMapping("/")
+    public Comment addComment(@RequestBody @Valid CommentDTO dto) {
 
-    // Get all approved comments for a product
-    @GetMapping("/approved/{productId}")
-    public List<Comment> getApprovedComments(@PathVariable String productId) {
-        return commentService.getApprovedComments(productId);
-    }
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) auth.getPrincipal();
 
-    // Approve a comment (Product Manager or Admin)
-    @PatchMapping("/approve/{commentId}")
-    public Comment approveComment(@PathVariable String commentId) {
-        return commentService.approveComment(commentId);
+        commentService.addComment(user.getId(), dto);
+
+        return null;
     }
 
 
-    // Get all comments for a product (for admin or product manager)
-    @GetMapping("/all/{productId}")
-    public List<Comment> getAllComments(@PathVariable String productId) {
-        return commentService.getAllCommentsForProduct(productId);
-    }
+//    @GetMapping("/approved/{productId}")
+//    public List<Comment> getApprovedComments(@PathVariable String productId) {
+//        return commentService.getApprovedComments(productId);
+//    }
+//
+//    // Get all comments for a product (for admin or product manager) (bunu serviste tut, direkt pm controlleri o servisi çağırsın)
+//    @GetMapping("/all/{productId}")
+//    public List<Comment> getAllComments(@PathVariable String productId) {
+//        return commentService.getAllCommentsForProduct(productId);
+//    }
 }

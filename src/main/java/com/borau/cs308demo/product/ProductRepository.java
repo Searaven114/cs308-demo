@@ -32,12 +32,11 @@ public interface ProductRepository extends MongoRepository<Product, String> {
     Page<Product> findByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCase(String title, String description, Pageable pageable);
 
 
+    boolean findByTitle(String title);
 
+    boolean existsByTitle(String title);
 
-
-
-
-
+    boolean existsBySerialNumber(String serialNumber);
 }
 
 

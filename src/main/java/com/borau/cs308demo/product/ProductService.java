@@ -1,9 +1,11 @@
 package com.borau.cs308demo.product;
+import com.borau.cs308demo.product.dto.ProductDTO;
 import com.borau.cs308demo.product.exception.ProductNotFoundException;
 
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+@Log4j2
 @AllArgsConstructor
 @Service
 public class ProductService {
@@ -119,5 +122,63 @@ public class ProductService {
         }
         throw new ProductNotFoundException("Product not found");
     }
+
+
+    //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━//
+
+
+    @Secured({"ROLE_ADMIN", "ROLE_PRODUCTMANAGER"})
+    public Product addProduct(ProductDTO productDTO) {
+        if (productRepo.existsByTitle(productDTO.getTitle())) {
+            throw new IllegalArgumentException("A product with this title already exists");
+        }
+
+        if (productRepo.existsBySerialNumber(productDTO.getSerialNumber())) {
+            throw new IllegalArgumentException("A product with this serial number already exists");
+        }
+
+        Product product = new Product(
+                productDTO.getTitle(),
+                productDTO.getCategoryId(),
+                productDTO.getBrand(),
+                productDTO.getModel(),
+                productDTO.getSerialNumber(),
+                productDTO.getDescription(),
+                productDTO.getQuantityInStock(),
+                productDTO.getBasePrice(),
+                productDTO.isWarrantyStatus(),
+                productDTO.getDistributorId()
+        );
+
+        return productRepo.save(product);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

@@ -7,8 +7,11 @@ import com.borau.cs308demo.product.Product;
 import com.borau.cs308demo.product.ProductRepository;
 import com.borau.cs308demo.product.ProductService;
 import com.borau.cs308demo.product.dto.ProductDTO;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
@@ -25,6 +28,7 @@ public class ProductManagerController {
 
     private final ProductService productService;
     private final CategoryService categoryService;
+    private final ProductRepository productRepo;
 
 //    The product managers shall add/remove products as well as product categories, and manage the stocks.
 
@@ -68,9 +72,26 @@ public class ProductManagerController {
 
     //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━PRODUCT KISMI━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━//
 
+    @Secured({"ROLE_ADMIN", "ROLE_PRODUCTMANAGER"})
+    @PostMapping(value = "/product/add", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> addProduct (@RequestBody @Valid ProductDTO  productDTO) {
+
+        try {
+            Product newProduct = productService.addProduct(productDTO);
+
+            return ResponseEntity.ok(newProduct);
+
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        }
+    }
+
+
+    //ChangeStock endpointi
 
 
 
+    //━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━xxxxx KISMI━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━//
 
 
 }

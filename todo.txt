@@ -1,18 +1,13 @@
 Not:
     - PC componentleri satan bir firma olarak başlattım projeyi, ileride değiştirmek gerekirse değiştirilebilir.
     - https://www.baeldung.com/java-validation
-    - şöyle bi https://prnt.sc/_Wi31TYFvKAm fantezi  yapılabilir notification, mockBank vs servisleri ayırmak için, proje portfolyoda guzel gozukur ise alımlar vs icin
     - https://getbootstrap.com/docs/5.0/forms/layout/ burada çok güzel hazır düzenler var form icin, address ekleme formunu falan buradan ekleyebiliriz.
 
 Todo:
-    - product image ve genel olarak resource lerin nasıl yönetilecegi problem, ya image hostlanacak yada blob olarak depolanacak.   https://github.com/spring-guides/gs-uploading-files
+    - https://github.com/spring-guides/gs-uploading-files
     - Session yapılabilir, hatta caching ile kullanılabilir belki?
-    - @ControllerAdvice ile dogru duzgun bi globalexception handler yapılmalı
-    - Junit ve mockito ile testler yazılacak servislerin vs
     - endpoint pathları ve resource pathları adam gibi standardize edilmeli, çoğul ekleri vs vs
     - service'yi interface & implementation şeklinde yapıp S.O.C uygulamak : https://davidgiard.com/java-services-and-interfaces-in-a-spring-boot-application,
-    - mail servisi ayarlanması lazım, hazır kolay kütüphane var: org.springframework.mail.javamail.JavaMailSender
-    - remember me https://www.baeldung.com/spring-security-remember-me
     - başarılı & başarısız api dönütleri standardize edilmeli 3-4 cesit api dönütü var amk biri özel response donduruyor
         digeri string donduruyor oburkusu body de objenin kendini donduruyor
     - universal ve crypto-safe olması icin ObjectId'den UUID type'si ile java.util.UUID'e geçiş yapmamız lazım (private UUID userId) yalnız baya ağır refactoring gerekecek
@@ -22,6 +17,7 @@ Todo:
         https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/domain/Pageable.html
         yalnız bunun frontendde nasıl değerlendirilmesi gerektiği hakkında hiçbir fikrim yok, react kolayca yapar dedi gpt
     -api dönüşleri standardize edilmeli -> "ApiResponse.class" falan yapılmalı
+    - imageleri URL şeklinde modelde tutalım, dışarıdan biyerden hostlarız, böylece List halinde tutabiliriz ürün içinde.
 
 
 

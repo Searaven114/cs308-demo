@@ -3,7 +3,6 @@ package com.borau.cs308demo.config.populator;
 
 import com.borau.cs308demo.address.Address;
 import com.borau.cs308demo.cart.Cart;
-import com.borau.cs308demo.cart.CartRepository;
 import com.borau.cs308demo.cartitem.CartItem;
 import com.borau.cs308demo.category.CategoryRepository;
 import com.borau.cs308demo.distributor.DistributorRepository;
@@ -31,7 +30,6 @@ public class UserPopulator {
     private final ProductRepository productRepo;
     private final DistributorRepository distributorRepo;
     private final CategoryRepository categoryRepo;
-    private final CartRepository cartRepo;
 
     private final Faker fake = new Faker();
 
@@ -109,51 +107,6 @@ public class UserPopulator {
             //Setting mock addresses
             user.setAddresses(addresses);
 
-
-
-    //TODO BOZUK BU, MAPPINGDE PROBLEM VAR, YA EKSTRA FIELD VAR YA TYPE MISMATCH VAR YADA EKSIK FIELD VAR
-
-//          // Create and assign a cart for "fuat"
-//            if (user.getUsername().equals("fuat")) {
-//
-//                Cart cart = new Cart();
-//
-//                cart.setUser(user);
-//
-//                // Adding CartItems to the cart
-//                List<CartItem> cartItems = new ArrayList<>();
-//
-//                Optional<Product> product1 = productRepo.findById("1");
-//                Optional<Product> product2 = productRepo.findById("2");
-//                Optional<Product> product3 = productRepo.findById("3");
-//                Optional<Product> product4 = productRepo.findById("4");
-//                Optional<Product> product5 = productRepo.findById("5");
-//
-//                // Declare CartItems outside the if block
-//                CartItem cartItem1 = null;
-//                CartItem cartItem2 = null;
-//                CartItem cartItem3 = null;
-//                CartItem cartItem4 = null;
-//                CartItem cartItem5 = null;
-//
-//                if (product1.isPresent()) { cartItem1 = new CartItem(product1.get(), 2); }
-//                if (product2.isPresent()) { cartItem2 = new CartItem(product2.get(), 1); }
-//                if (product3.isPresent()) { cartItem3 = new CartItem(product3.get(), 7); }
-//                if (product4.isPresent()) { cartItem4 = new CartItem(product4.get(), 99); }
-//                if (product5.isPresent()) { cartItem5 = new CartItem(product5.get(), 1); }
-//
-//                if (cartItem1 != null) cartItems.add(cartItem1);
-//                if (cartItem2 != null) cartItems.add(cartItem2);
-//                if (cartItem3 != null) cartItems.add(cartItem3);
-//                if (cartItem4 != null) cartItems.add(cartItem4);
-//                if (cartItem5 != null) cartItems.add(cartItem5);
-//
-//                cart.setCartItems(cartItems);
-//
-//                user.setCart(cart);
-//
-//                userRepo.save(user);
-//            }
         }
 
 
