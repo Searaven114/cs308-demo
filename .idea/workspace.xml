@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="cffccb0a-3b7c-437e-ad8e-32ba573cf4c1" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Course Project.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/Cs308DemoApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/address/Address.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/address/AddressDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/admin/AdminController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/cart/Cart.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/cart/CartController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/cart/CartRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/cart/CartService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/cartitem/CartItem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/category/Category.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/category/CategoryRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/category/CategoryService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/category/dto/CategoryDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/comment/Comment.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/comment/CommentController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/comment/CommentRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/comment/CommentService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/comment/dto/CommentDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/config/HttpSessionConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/config/SecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/config/populator/CartPopulator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/config/populator/CategoryPopulator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/config/populator/DistributorPopulator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/config/populator/ProductPopulator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/config/populator/UserPopulator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/deliverylist/DeliveryList.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/distributor/Distributor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/distributor/DistributorRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/distributor/DistributorService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/exception/GlobalExceptionHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/invoice/Invoice.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/invoice/InvoiceController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/invoice/InvoiceRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/invoice/InvoiceService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/mail/MailService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/notification/NotificationService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/order/Order.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/order/OrderController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/order/OrderRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/order/OrderService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/order/OrderStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/orderitem/OrderItem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/payment/CreditCard.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/payment/PaymentService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/product/Product.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/product/ProductController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/product/ProductRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/product/ProductService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/product/dto/ProductDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/product/exception/ProductNotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/productmanager/ProductManagerController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/productmanager/ProductManagerService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/salesmanager/SalesManagerController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/salesmanager/SalesManagerService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/user/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/user/UserController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/user/UserDetailsServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/user/UserRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/user/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/user/dto/ProfileDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/user/dto/UserLoginDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/user/dto/UserRegistrationDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/user/dto/UserResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/user/exception/UserNotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/user/exception/UserRegistrationException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/util/EncryptionUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/borau/cs308demo/view/PageController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/styles.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/about.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/checkout.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/login.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/profile.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/register.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/borau/cs308demo/Cs308DemoApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/borau/cs308demo/category/CategoryServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/todo.txt" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Dockerfile" />
+        <option value="Interface" />
+        <option value="JUnit5 Test Class" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$USER_HOME$/Program Files/Java/jdk-22/lib/src.zip!/java.base/java/security/Principal.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$MAVEN_REPOSITORY$/com/github/javafaker/javafaker/1.0.2/javafaker-1.0.2.jar!/com/github/javafaker/Faker.class" root0="SKIP_INSPECTION" />
+    <setting file="jar://$MAVEN_REPOSITORY$/com/github/javafaker/javafaker/1.0.2/javafaker-1.0.2.jar!/com/github/javafaker/Lorem.class" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2mz992UKj4pJ7OvDMqmR18iRO6j" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="openDirectoriesWithSingleClick" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Cs308DemoApplication.executor": "Run",
+    "Maven.CS308-demo [package].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.Cs308DemoApplication.executor": "Run",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Borau/OneDrive/projects/IntelliJ Projects/CS308-demo",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pathVariables",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Borau\OneDrive\projects\IntelliJ Projects\CS308-demo" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Borau\IdeaProjects\CS308-demo\src\main\resources\templates" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.borau.cs308demo.category" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Cs308DemoApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="21" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <envs>
+        <env name="mongo_collection_name" value="CS308-demo" />
+        <env name="mail_username" value="deneme" />
+        <env name="mail_password" value="deneme" />
+      </envs>
+      <module name="CS308-demo" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.borau.cs308demo.Cs308DemoApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cffccb0a-3b7c-437e-ad8e-32ba573cf4c1" name="Changes" comment="" />
+      <created>1728068382642</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1728068382642</updated>
+      <workItem from="1728068383655" duration="1121000" />
+      <workItem from="1728069583156" duration="37910000" />
+      <workItem from="1728163282475" duration="19758000" />
+      <workItem from="1728219239829" duration="21287000" />
+      <workItem from="1728256143571" duration="19580000" />
+      <workItem from="1728392353454" duration="541000" />
+      <workItem from="1728393355697" duration="9645000" />
+      <workItem from="1728415234435" duration="595000" />
+      <workItem from="1728427084211" duration="284000" />
+      <workItem from="1728427836293" duration="21000" />
+      <workItem from="1728427889889" duration="14000" />
+      <workItem from="1728428875085" duration="1456000" />
+      <workItem from="1728431392814" duration="33291000" />
+      <workItem from="1728546699472" duration="94000" />
+      <workItem from="1728547116200" duration="100000" />
+      <workItem from="1728547350067" duration="18466000" />
+      <workItem from="1728584056337" duration="6347000" />
+      <workItem from="1728625653330" duration="8752000" />
+      <workItem from="1728661401675" duration="17924000" />
+      <workItem from="1728767114707" duration="639000" />
+      <workItem from="1728770942197" duration="38934000" />
+      <workItem from="1728925641428" duration="10388000" />
+      <workItem from="1729006210331" duration="3332000" />
+      <workItem from="1729021684920" duration="7229000" />
+      <workItem from="1729064855597" duration="5802000" />
+      <workItem from="1729147285667" duration="19423000" />
+      <workItem from="1729195223278" duration="9276000" />
+      <workItem from="1729256947287" duration="1093000" />
+      <workItem from="1729342240846" duration="22146000" />
+      <workItem from="1729443387529" duration="1955000" />
+      <workItem from="1729535121725" duration="1106000" />
+      <workItem from="1729608596825" duration="12811000" />
+      <workItem from="1730047551956" duration="2418000" />
+      <workItem from="1730155849629" duration="2512000" />
+      <workItem from="1730453421442" duration="7487000" />
+      <workItem from="1730501499292" duration="2170000" />
+      <workItem from="1730574480174" duration="4460000" />
+      <workItem from="1730620484401" duration="805000" />
+      <workItem from="1730621303285" duration="80000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

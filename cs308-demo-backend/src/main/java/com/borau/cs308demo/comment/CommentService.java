@@ -18,15 +18,6 @@ public class CommentService {
     private final CommentRepository commentRepo;
     private final ProductRepository productRepo;
 
-//    private String id;
-//    private String productId;
-//    private String userId;
-//    private String content;
-//    private int rating;
-//    private boolean approved = false;
-//    private LocalDateTime createdDate;
-//
-
     public void addComment(String userId,CommentDTO dto) {
 
         Comment comment = new Comment();
@@ -42,11 +33,13 @@ public class CommentService {
         log.info("[CommentService] Comment added: {}", comment);
     }
 
-    //paginated yap
-//    public List<Comment> getApprovedComments(String productId) {
-//        return commentRepo.findByProductIdAndApprovedTrue(productId);
-//    }
-//
+
+    public List<Comment> getApprovedComments(String productId) {
+        return commentRepo.findByProductIdAndApprovedTrue(productId);
+    }
+
+
+
 //    // Admin or product manager can view all comments (including unapproved)
 //    public List<Comment> getAllCommentsForProduct(String productId) {
 //        return commentRepo.findByProductId(productId);

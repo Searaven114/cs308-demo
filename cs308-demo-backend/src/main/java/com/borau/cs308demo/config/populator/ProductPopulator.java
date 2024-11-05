@@ -71,7 +71,7 @@ public class ProductPopulator {
                 "U2720Q",
                 "D273928Q",
                 "27-inch 4K monitor with vibrant colors and sharp details, ideal for productivity and media consumption.",
-                35,
+                0,
                 550.99,
                 true,
                 "2"

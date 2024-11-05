@@ -33,14 +33,10 @@ public class CommentController {
     }
 
 
-//    @GetMapping("/approved/{productId}")
-//    public List<Comment> getApprovedComments(@PathVariable String productId) {
-//        return commentService.getApprovedComments(productId);
-//    }
-//
-//    // Get all comments for a product (for admin or product manager) (bunu serviste tut, direkt pm controlleri o servisi çağırsın)
-//    @GetMapping("/all/{productId}")
-//    public List<Comment> getAllComments(@PathVariable String productId) {
-//        return commentService.getAllCommentsForProduct(productId);
-//    }
+    @GetMapping("/{productId}")
+    public List<Comment> getApprovedComments(@PathVariable String productId) {
+        return commentService.getApprovedComments(productId);
+    }
+
+
 }

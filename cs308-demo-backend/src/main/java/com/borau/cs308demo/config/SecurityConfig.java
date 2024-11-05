@@ -25,7 +25,7 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(req->{
                      req
-                         .requestMatchers("/login","/api/user","/api/user/profile","/", "/index", "/error", "/api/user", "/register","/about")
+                         .requestMatchers("/login","/api/user","/api/user/profile","/", "/index", "/error", "/api/user/**", "/register","/about")
                          .permitAll()
 
 //                         .requestMatchers("/api/product/**")
@@ -64,26 +64,14 @@ public class SecurityConfig {
 
                 })
                 .sessionManagement(session -> {
-                    session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
+                    session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
                 })
+                .logout((logout) -> logout.logoutSuccessUrl("/"))
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(withDefaults())
-//                .formLogin(form -> form
-//                        .loginPage("/login")  // Custom login page
-//                        .defaultSuccessUrl("/", true)  // Redirect to homepage after successful login
-//                        .permitAll()
-//                )
-
                 .httpBasic(withDefaults())
                 .build();
     }
-
-//    //Expose the AuthenticationManager bean to be autowired to services
-//    @Bean
-//    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-//        return authenticationConfiguration.getAuthenticationManager();
-//    }
-//
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {

@@ -82,7 +82,7 @@ public class UserService{
 
         newUser.setEmail(dto.getEmail());
 
-        log.info("(DEBUG)(UserService.java) Received password : \"" + dto.getPassword() + "\" from user : " + dto.getEmail());
+        log.info("[UserService.java] Received password : \"" + dto.getPassword() + "\" from user : " + dto.getEmail());
         newUser.setPassword( encoder.encode( dto.getPassword() ) );
 
         newUser.setName( dto.getName() );
